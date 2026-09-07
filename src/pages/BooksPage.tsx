@@ -57,7 +57,7 @@ export const BooksPage: React.FC<BooksPageProps> = ({ onOpenEnquiry }) => {
   return (
     <div className="bg-[#F8F6F2] min-h-screen pt-6 pb-28">
       <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8">
-        
+
         {/* Breadcrumbs */}
         <div className="flex items-center gap-2 text-xs font-button uppercase tracking-wider text-gray-500 mb-6">
           <Link to="/" className="hover:text-[#C67C4E] transition-colors">Home</Link>
@@ -85,109 +85,108 @@ export const BooksPage: React.FC<BooksPageProps> = ({ onOpenEnquiry }) => {
           </div>
         </div>
 
-{/* 1. PHYSICAL SAMPLE BOOKS SHOWCASE BANNER */}
-<div className="bg-[#111111] text-white rounded-3xl p-6 sm:p-8 mb-10 border border-white/10 shadow-xl">
-  <div className="flex flex-col md:flex-row items-center justify-between gap-6 mb-6">
-    <div>
-      <div className="inline-flex items-center gap-1.5 bg-[#C67C4E]/20 text-[#C67C4E] px-3 py-1 rounded-full text-[10px] font-button font-bold uppercase tracking-widest border border-[#C67C4E]/30 mb-2">
-        <QrCode className="w-3.5 h-3.5" />
-        <span>Physical Sample Books with QR Code</span>
-      </div>
-      <h3 className="font-serif text-2xl sm:text-3xl font-bold text-white">
-        Scan Any Physical Book to View 25–30 Swatches
-      </h3>
-      <p className="font-sans text-xs text-gray-300 mt-1 max-w-2xl">
-        Every physical sample book sent to dealers and architects carries a unique QR Code. Click any book below to simulate scanning and view all designs with RRP pricing.
-      </p>
-    </div>
-    
-    <div className="flex items-center gap-3 w-full md:w-auto justify-between md:justify-end">
-      {/* Slider Navigation Buttons */}
-      <div className="flex items-center gap-2">
-        <button
-          onClick={() => {
-            const container = document.getElementById('books-slider');
-            if (container) {
-              container.scrollBy({ left: -container.clientWidth * 0.75, behavior: 'smooth' });
-            }
-          }}
-          className="bg-white/5 hover:bg-[#C67C4E] border border-white/10 hover:border-[#C67C4E] text-white p-2.5 rounded-full transition-colors shadow-md"
-          aria-label="Scroll left"
-        >
-          <ChevronLeft className="w-4 h-4" />
-        </button>
-        <button
-          onClick={() => {
-            const container = document.getElementById('books-slider');
-            if (container) {
-              container.scrollBy({ left: container.clientWidth * 0.75, behavior: 'smooth' });
-            }
-          }}
-          className="bg-white/5 hover:bg-[#C67C4E] border border-white/10 hover:border-[#C67C4E] text-white p-2.5 rounded-full transition-colors shadow-md"
-          aria-label="Scroll right"
-        >
-          <ChevronRight className="w-4 h-4" />
-        </button>
-      </div>
+        {/* 1. PHYSICAL SAMPLE BOOKS SHOWCASE BANNER */}
+        <div className="bg-[#111111] text-white rounded-3xl p-6 sm:p-8 mb-10 border border-white/10 shadow-xl">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-6 mb-6">
+            <div>
+              <div className="inline-flex items-center gap-1.5 bg-[#C67C4E]/20 text-[#C67C4E] px-3 py-1 rounded-full text-[10px] font-button font-bold uppercase tracking-widest border border-[#C67C4E]/30 mb-2">
+                <QrCode className="w-3.5 h-3.5" />
+                <span>Physical Sample Books with QR Code</span>
+              </div>
+              <h3 className="font-serif text-2xl sm:text-3xl font-bold text-white">
+                Scan Any Physical Book to View 25–30 Swatches
+              </h3>
+              <p className="font-sans text-xs text-gray-300 mt-1 max-w-2xl">
+                Every physical sample book sent to dealers and architects carries a unique QR Code. Click any book below to simulate scanning and view all designs with RRP pricing.
+              </p>
+            </div>
 
-      <button
-        onClick={() => onOpenEnquiry(null)}
-        className="bg-[#C67C4E] hover:bg-[#b06a3d] text-white px-5 py-2.5 rounded-full font-button text-xs font-bold uppercase tracking-wider shrink-0 transition-colors shadow-md"
-      >
-        Request Physical Book
-      </button>
-    </div>
-  </div>
+            <div className="flex items-center gap-3 w-full md:w-auto justify-between md:justify-end">
+              {/* Slider Navigation Buttons */}
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={() => {
+                    const container = document.getElementById('books-slider');
+                    if (container) {
+                      container.scrollBy({ left: -container.clientWidth * 0.75, behavior: 'smooth' });
+                    }
+                  }}
+                  className="bg-white/5 hover:bg-[#C67C4E] border border-white/10 hover:border-[#C67C4E] text-white p-2.5 rounded-full transition-colors shadow-md"
+                  aria-label="Scroll left"
+                >
+                  <ChevronLeft className="w-4 h-4" />
+                </button>
+                <button
+                  onClick={() => {
+                    const container = document.getElementById('books-slider');
+                    if (container) {
+                      container.scrollBy({ left: container.clientWidth * 0.75, behavior: 'smooth' });
+                    }
+                  }}
+                  className="bg-white/5 hover:bg-[#C67C4E] border border-white/10 hover:border-[#C67C4E] text-white p-2.5 rounded-full transition-colors shadow-md"
+                  aria-label="Scroll right"
+                >
+                  <ChevronRight className="w-4 h-4" />
+                </button>
+              </div>
 
-  {/* Slider Container - 2 cards visible on mobile, 3 on sm, 5 on lg */}
-  <div 
-    id="books-slider"
-    className="flex gap-4 overflow-x-auto scrollbar-none snap-x snap-mandatory scroll-smooth pb-2"
-    style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
-  >
-    {uniqueBooks.map((book) => (
-      <div
-        key={book.id}
-        onClick={() => navigate(`/books/${book.id}`)}
-        className="bg-white/5 hover:bg-white/10 border border-white/10 hover:border-[#C67C4E] rounded-2xl p-3 cursor-pointer transition-all text-center group flex flex-col justify-between shrink-0 snap-start w-[calc(50%-8px)] sm:w-[calc(33.333%-16px*2/3)] lg:w-[calc(20%-16px*4/5)]"
-      >
-        <div className="relative aspect-square rounded-xl overflow-hidden bg-gray-900 mb-2 border border-white/10">
-          <img
-            src={book.coverImage}
-            alt={book.name}
-            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-            referrerPolicy="no-referrer"
-          />
-          <span className="absolute top-2 right-2 bg-[#C67C4E] text-white text-[9px] font-button font-bold uppercase px-1.5 py-0.5 rounded">
-            QR Code
-          </span>
-          <div className="absolute bottom-2 left-2 right-2 bg-black/70 backdrop-blur-sm text-[9px] font-button font-bold text-amber-300 uppercase px-1 py-0.5 rounded truncate">
-            {book.totalSwatches} Designs
+              <button
+                onClick={() => onOpenEnquiry(null)}
+                className="bg-[#C67C4E] hover:bg-[#b06a3d] text-white px-5 py-2.5 rounded-full font-button text-xs font-bold uppercase tracking-wider shrink-0 transition-colors shadow-md"
+              >
+                Request Physical Book
+              </button>
+            </div>
           </div>
-        </div>
 
-        <div className="space-y-1">
-          <h4 className="font-serif text-xs font-bold text-white group-hover:text-[#C67C4E] transition-colors line-clamp-1">
-            {book.name}
-          </h4>
-          <span className="text-[10px] font-button text-gray-400 block uppercase font-bold">
-            Code: {book.code}
-          </span>
-        </div>
-      </div>
-    ))}
-  </div>
-</div>      {/* 2. BRAND & SEARCH FILTERS */}
+          {/* Slider Container - 2 cards visible on mobile, 3 on sm, 5 on lg */}
+          <div
+            id="books-slider"
+            className="flex gap-4 overflow-x-auto scrollbar-none snap-x snap-mandatory scroll-smooth pb-2"
+            style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+          >
+            {uniqueBooks.map((book) => (
+              <div
+                key={book.id}
+                onClick={() => navigate(`/books/${book.id}`)}
+                className="bg-white/5 hover:bg-white/10 border border-white/10 hover:border-[#C67C4E] rounded-2xl p-3 cursor-pointer transition-all text-center group flex flex-col justify-between shrink-0 snap-start w-[calc(50%-8px)] sm:w-[calc(33.333%-16px*2/3)] lg:w-[calc(20%-16px*4/5)]"
+              >
+                <div className="relative aspect-square rounded-xl overflow-hidden bg-gray-900 mb-2 border border-white/10">
+                  <img
+                    src={book.coverImage}
+                    alt={book.name}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    referrerPolicy="no-referrer"
+                  />
+                  <span className="absolute top-2 right-2 bg-[#C67C4E] text-white text-[9px] font-button font-bold uppercase px-1.5 py-0.5 rounded">
+                    QR Code
+                  </span>
+                  <div className="absolute bottom-2 left-2 right-2 bg-black/70 backdrop-blur-sm text-[9px] font-button font-bold text-amber-300 uppercase px-1 py-0.5 rounded truncate">
+                    {book.totalSwatches} Designs
+                  </div>
+                </div>
+
+                <div className="space-y-1">
+                  <h4 className="font-serif text-xs font-bold text-white group-hover:text-[#C67C4E] transition-colors line-clamp-1">
+                    {book.name}
+                  </h4>
+                  <span className="text-[10px] font-button text-gray-400 block uppercase font-bold">
+                    Code: {book.code}
+                  </span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>      {/* 2. BRAND & SEARCH FILTERS */}
         <div className="bg-white p-5 rounded-2xl border border-gray-200 shadow-sm mb-10 flex flex-col md:flex-row items-center gap-4 justify-between">
           {/* Brand Filter Tabs */}
           <div className="flex items-center gap-2 overflow-x-auto w-full md:w-auto pb-2 md:pb-0 scrollbar-none">
             <button
               onClick={() => setSelectedBrand('all')}
-              className={`px-4 py-2 rounded-xl text-xs font-button font-bold uppercase tracking-wider shrink-0 transition-all ${
-                selectedBrand === 'all'
+              className={`px-4 py-2 rounded-xl text-xs font-button font-bold uppercase tracking-wider shrink-0 transition-all ${selectedBrand === 'all'
                   ? 'bg-[#111111] text-white shadow-sm'
                   : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-              }`}
+                }`}
             >
               All Sample Books ({SAMPLE_BOOKS_DATA.length})
             </button>
@@ -196,11 +195,10 @@ export const BooksPage: React.FC<BooksPageProps> = ({ onOpenEnquiry }) => {
               <button
                 key={brand.slug}
                 onClick={() => setSelectedBrand(brand.code)}
-                className={`px-3 py-2 rounded-xl text-xs font-button font-bold uppercase tracking-wider shrink-0 transition-all ${
-                  selectedBrand === brand.code
+                className={`px-3 py-2 rounded-xl text-xs font-button font-bold uppercase tracking-wider shrink-0 transition-all ${selectedBrand === brand.code
                     ? 'bg-[#C67C4E] text-white shadow-sm'
                     : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-                }`}
+                  }`}
               >
                 {brand.code}
               </button>

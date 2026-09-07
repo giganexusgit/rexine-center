@@ -4,77 +4,81 @@ import rexineSlateCharcoal from '../assets/images/rexine_slate_charcoal_17852274
 import rexineEmeraldGreen from '../assets/images/rexine_emerald_green_1785227447891.jpg';
 import rexineMidnightNavy from '../assets/images/rexine_midnight_navy_1785227463408.jpg';
 import heroLeatherRolls from '../assets/images/hero_leather_rolls_1785154192570.jpg';
-// import leatherSwatchesStacked from '../assets/images/leather_swatches_stacked_1785154222031.jpg';
-// import aboutInteriorDining from '../assets/images/about_interior_dining_1785154208545.jpg';
-// import chairLoungeContact from '../assets/images/chair_lounge_contact_1785154236762.jpg';
-// import heroLeatherFolds from '../assets/images/hero_leather_folds_1785161428952.jpg';
-// import { CINEFAB_SHADES } from './book-shades/cinefabShades';
-// import { AURA_SHADES } from './book-shades/auraShades';
-// import { CLIFF_SHADES } from './book-shades/cliffShades';
-// import { CORAL_SHADES } from './book-shades/coralShades';
-// import { FLOW_SHADES } from './book-shades/flowShades';
-// import { ITALIAN_LEATHER_SHADES } from './book-shades/italianLeatherShades';
-// import { LUXE_SHADES } from './book-shades/luxeShades';
-// import { SAND_SHADES } from './book-shades/sandShades';
-// import { STAR_SHADES } from './book-shades/starShades';
-// import { ULTRA_SHADES } from './book-shades/ultraShades';
 
-import aura647 from './books-json/aura-647.json'
-import cinefab651 from './books-json/cinefab-651.json'
-import cliff653 from './books-json/cliff-653.json'
-import coral from './books-json/coral.json'
-import flow424 from './books-json/flow-424.json'
-import italianleather422 from './books-json/italian-leather-422.json'
-import luxe648 from './books-json/luxe-648.json'
-import sand from './books-json/sand.json'
-import star from './books-json/star.json'
-import ultra649 from './books-json/ultra-649.json'
-import nova201 from './books-json/nova-201.json'
-import sleek205 from './books-json/sleek-205.json'
-import home203 from './books-json/home-203.json'
-import kraft204 from './books-json/Kraft-204.json'
-import regal202 from './books-json/regal-202.json'
-import prime206 from './books-json/prime-206.json'
-import velveto207 from './books-json/velveto-207.json'
+// ============================================================
+// EXISTING BOOK JSON IMPORTS
+// ============================================================
 
+import aura647 from './books-json/aura-647.json';
+import cinefab651 from './books-json/cinefab-651.json';
+import cliff653 from './books-json/cliff-653.json';
+import coral from './books-json/coral.json';
+import flow424 from './books-json/flow-424.json';
+import italianleather422 from './books-json/italian-leather-422.json';
+import luxe648 from './books-json/luxe-648.json';
+import sand from './books-json/sand.json';
+import star from './books-json/star.json';
+import ultra649 from './books-json/ultra-649.json';
+import nova201 from './books-json/nova-201.json';
+import sleek205 from './books-json/sleek-205.json';
+import home203 from './books-json/home-203.json';
+import kraft204 from './books-json/Kraft-204.json';
+import regal202 from './books-json/regal-202.json';
+import prime206 from './books-json/prime-206.json';
+import velveto207 from './books-json/velveto-207.json';
+
+// ============================================================
+// NEW COMING-SOON BOOK JSON IMPORTS
+// ============================================================
+
+import aveo412 from './books-json/aveo-412.json';
+import studio414 from './books-json/studio-414.json';
+import cinematte415 from './books-json/cinematte-415.json';
+import noira426 from './books-json/noira-426.json';
+import germanleather425 from './books-json/german leather-425.json';
+import koreanleather427 from './books-json/korean leather-427.json';
+import plush643 from './books-json/plush-643.json';
+import urban644 from './books-json/urban-644.json';
+import brookley654 from './books-json/brookley-654.json';
+import roman655 from './books-json/roman-655.json';
+import linen656 from './books-json/linen-656.json';
+import luxury657 from './books-json/luxury-657.json';
+import rich658 from './books-json/rich-658.json';
+import softy659 from './books-json/softy-659.json';
+import maple660 from './books-json/maple-660.json';
+import casa661 from './books-json/casa-661.json';
+
+// ============================================================
+// TYPES
+// ============================================================
 
 export interface BookProduct {
   code: string;
-
   name: string;
-
   shadeName?: string;
-
   category?: string;
 
   // Retail RRP price in INR per meter
   rrp: number;
 
   unit: string;
-
   description: string;
-
   image: string;
-
   fallbackImage?: string;
-
   gallery?: string[];
 
-  colors?: { name: string; hex: string }[];
+  colors?: {
+    name: string;
+    hex: string;
+  }[];
 
   specs: {
     thickness?: string;
-
     width?: string;
-
     backing?: string;
-
     finish?: string;
-
     gsm?: string;
-
     rollLength?: string;
-
     abrasion?: string;
   };
 
@@ -83,23 +87,14 @@ export interface BookProduct {
 
 export interface Book {
   slug: string;
-
   title: string;
-
   code: string;
-
   category: string;
-
   year?: string;
-
   description: string;
-
   coverImage: string;
-
   fallbackCover?: string;
-
   pdfPath: string;
-
   designCount: number;
 
   // Sale price in INR per meter
@@ -107,182 +102,234 @@ export interface Book {
 
   specs?: {
     thickness?: string;
-
     width?: string;
-
     backing?: string;
-
     finish?: string;
-
     targetUse?: string;
   };
 
   products: BookProduct[];
+
+  // Used for books whose catalogue information is not available yet
+  status?: 'available' | 'coming-soon';
+
+  // Optional message shown for coming-soon books
+  message?: string;
 }
 
-export interface BookShade {
-  sr: string;
+// ============================================================
+// HELPERS
+// ============================================================
 
-  name: string;
+const COMING_SOON_MESSAGE =
+  'Detailed information, specifications, colours and swatches for this collection will be available soon.';
 
-  hex: string;
-}
+/**
+ * Converts the lightweight coming-soon JSON files into the
+ * complete Book structure used by the existing application.
+ */
+const createComingSoonBook = (book: {
+  id?: string;
+  name?: string;
+  code?: string;
+  title?: string;
+  status?: string;
+  message?: string;
+}): Book => {
+  const name = book.name || book.title || 'Collection';
+  const id = book.id || `${name.toLowerCase().replace(/\s+/g, '-')}-${book.code}`;
 
-//=========== to generate new products for new pdf =============
-//
-// export function generateNewProducts(
-//   products: BookShade[],
-//   bookCode: string,
-//   bookSlug: string,
-//   category: string,
-//   rrp: number
-// ): BookProduct[] {
-//   const productNumber = bookCode.split('-').pop() ?? bookCode;
+  return {
+    slug: id,
+    title: book.title || `${name}-${book.code}`,
+    code: book.code || '',
+    category: 'Rexine & Upholstery',
+    year: 'Coming Soon',
+    description:
+      book.message ||
+      COMING_SOON_MESSAGE,
+    coverImage: heroLeatherRolls,
+    fallbackCover: heroLeatherRolls,
+    pdfPath: '',
+    designCount: 0,
+    salePrice: 0,
 
-//   return products.map((shade) => ({
-//     code: `${productNumber}-${shade.sr}`,
+    specs: {
+      thickness: undefined,
+      width: undefined,
+      backing: undefined,
+      finish: undefined,
+      targetUse: undefined,
+    },
 
-//     name: `${bookCode} ${shade.sr}`,
+    products: [],
 
-//     shadeName: `SR.NO: ${shade.sr} - ${shade.name}`,
+    status: 'coming-soon',
 
-//     category,
+    message:
+      book.message ||
+      COMING_SOON_MESSAGE,
+  };
+};
 
-//     rrp,
-
-//     unit: 'meter',
-
-//     description: `Premium swatch (${productNumber}-${shade.sr}) from official catalogue '${bookCode}'. Features ${shade.name} with reinforced backing and high abrasion resistance for contract and residential upholstery.`,
-
-//     image: ``,
-
-//     colors: [
-//       {
-//         name: shade.name,
-//         hex: shade.hex,
-//       },
-//     ],
-
-//     specs: {},
-
-//     inStock: true,
-//   }));
-// }
-//============
-
+// ============================================================
+// MAIN BOOK DATA
+// ============================================================
 
 export const MOCK_BOOKS: Book[] = [
-   aura647,
-   cinefab651,
-   cliff653,
-   coral,
-   flow424,
-   italianleather422,
-   luxe648,
-   sand,
-   star,
-   ultra649,
-   nova201,
-   regal202,
-   home203,
-   kraft204,
-   sleek205,
-   prime206,
-   velveto207,
-  // {
-  //   slug: 'ddecor-luxury-velvet',
-  //   title: "D'Decor - Luxury Velvet Vol. 1",
-  //   code: 'DD-BK-VOL1',
-  //   category: 'Sofa Fabrics & Velvet',
-  //   year: '2026 Master Edition',
-  //   description: "Official D'Decor physical sample book containing 28 rich velvet swatches, spill-shield treated for luxury living room sofas, recliners, and accent chairs.",
-  //   coverImage: '/books/ddecor-luxury-velvet/cover.webp',
-  //   fallbackCover: rexineBurgundyWine,
-  //   pdfPath: '/books/ddecor-luxury-velvet/catalogue.pdf',
-  //   designCount: 28,
-  //   specs: {
-  //     thickness: '1.4 mm',
-  //     width: '56 inches (142 cm)',
-  //     backing: 'Latex Bonded Weave',
-  //     finish: 'Stain Shield Velvet Topcoat',
-  //     targetUse: 'Luxury Sofas, Recliners & Armchairs',
-  //   },
-  //   products: generateMockProducts(
-  //     'ddecor-luxury-velvet',
-  //     'DD-BK-VOL1',
-  //     "D'Decor Luxury Velvet",
-  //     'Sofa Fabrics & Velvet',
-  //     28,
-  //     1250
-  //   ),
-  // },
-  // {
-  //   slug: 'signature-diamond-quilted',
-  //   title: 'Signature - Diamond Quilted & Embossed',
-  //   code: 'SG-BK-QUILT',
-  //   category: 'Decorative Materials',
-  //   year: '2026 Edition',
-  //   description: 'Physical swatch book with 27 padded diamond stitched and metallic embossed synthetic hides for luxury headboards and decorative wall panels.',
-  //   coverImage: '/books/signature-diamond-quilted/cover.webp',
-  //   fallbackCover: rexineEmeraldGreen,
-  //   pdfPath: '/books/signature-diamond-quilted/catalogue.pdf',
-  //   designCount: 27,
-  //   specs: {
-  //     thickness: '1.4 mm',
-  //     width: '54 inches (137 cm)',
-  //     backing: '10mm Foam Padded Backing',
-  //     finish: 'Stitched Diamond & Metallic Gloss',
-  //     targetUse: 'Headboards, Wall Panels & Accents',
-  //   },
-  //   products: generateMockProducts(
-  //     'signature-diamond-quilted',
-  //     'SG-BK-QUILT',
-  //     'Signature Diamond Quilted',
-  //     'Decorative Materials',
-  //     27,
-  //     1480
-  //   ),
-  // },
+  // ----------------------------------------------------------
+  // EXISTING 17 BOOKS
+  // ----------------------------------------------------------
+
+  aura647 as Book,
+  cinefab651 as Book,
+  cliff653 as Book,
+  coral as Book,
+  flow424 as Book,
+  italianleather422 as Book,
+  luxe648 as Book,
+  sand as Book,
+  star as Book,
+  ultra649 as Book,
+  nova201 as Book,
+  regal202 as Book,
+  home203 as Book,
+  kraft204 as Book,
+  sleek205 as Book,
+  prime206 as Book,
+  velveto207 as Book,
+
+  // ----------------------------------------------------------
+  // NEW 16 COMING-SOON BOOKS
+  // ----------------------------------------------------------
+
+  createComingSoonBook(aveo412),
+  createComingSoonBook(studio414),
+  createComingSoonBook(cinematte415),
+  createComingSoonBook(noira426),
+  createComingSoonBook(germanleather425),
+  createComingSoonBook(koreanleather427),
+  createComingSoonBook(plush643),
+  createComingSoonBook(urban644),
+  createComingSoonBook(brookley654),
+  createComingSoonBook(roman655),
+  createComingSoonBook(linen656),
+  createComingSoonBook(luxury657),
+  createComingSoonBook(rich658),
+  createComingSoonBook(softy659),
+  createComingSoonBook(maple660),
+  createComingSoonBook(casa661),
 ];
 
-// Utility: get book by slug or ID/code
-export const getBookBySlug = (slugOrId: string): Book | undefined => {
+// ============================================================
+// SAMPLE BOOK DATA
+// Used by BooksPage.tsx
+// ============================================================
+
+export const SAMPLE_BOOKS_DATA = MOCK_BOOKS.map((book) => ({
+  id: book.slug,
+  slug: book.slug,
+
+  name: book.title,
+  title: book.title,
+
+  code: book.code,
+
+  collectionId: book.slug,
+  collectionName: book.title.replace(/-\d+$/, ''),
+
+  category: book.category,
+
+  year: book.year || '2026 Master Edition',
+
+  description: book.description,
+
+  coverImage: book.coverImage,
+  fallbackCover: book.fallbackCover,
+
+  pdfPath: book.pdfPath,
+
+  totalSwatches: book.designCount,
+
+  designCount: book.designCount,
+
+  salePrice: book.salePrice,
+
+  specs: book.specs,
+
+  products: book.products,
+
+  status: book.status || 'available',
+
+  message: book.message,
+}));
+
+// ============================================================
+// GET BOOK BY SLUG / ID / CODE
+// ============================================================
+
+export const getBookBySlug = (
+  slugOrId: string
+): Book | undefined => {
   const query = slugOrId.toLowerCase().trim();
+
   return MOCK_BOOKS.find(
-    (b) =>
-      b.slug.toLowerCase() === query ||
-      b.code.toLowerCase() === query ||
-      b.slug.replace(/-/g, '').toLowerCase() === query.replace(/-/g, '')
+    (book) =>
+      book.slug.toLowerCase() === query ||
+      book.code.toLowerCase() === query ||
+      book.slug.replace(/-/g, '').toLowerCase() ===
+        query.replace(/-/g, '')
   );
 };
 
-// Utility: get product inside book
+// ============================================================
+// GET PRODUCT INSIDE BOOK
+// ============================================================
+
 export const getBookProduct = (
   slug: string,
   productCode: string
-): { book: Book; product: BookProduct } | undefined => {
+): {
+  book: Book;
+  product: BookProduct;
+} | undefined => {
   const book = getBookBySlug(slug);
+
   if (!book) return undefined;
 
   const codeQuery = productCode.toLowerCase().trim();
+
   const product = book.products.find(
-    (p) => p.code.toLowerCase() === codeQuery
+    (product) =>
+      product.code.toLowerCase() === codeQuery
   );
 
   if (!product) return undefined;
-  return { book, product };
+
+  return {
+    book,
+    product,
+  };
 };
 
-// Utility: get related products from same book
+// ============================================================
+// GET RELATED PRODUCTS
+// ============================================================
+
 export const getRelatedProducts = (
   slug: string,
   currentProductCode: string,
   limit = 4
 ): BookProduct[] => {
   const book = getBookBySlug(slug);
+
   if (!book) return [];
 
   return book.products
-    .filter((p) => p.code.toLowerCase() !== currentProductCode.toLowerCase())
+    .filter(
+      (product) =>
+        product.code.toLowerCase() !==
+        currentProductCode.toLowerCase()
+    )
     .slice(0, limit);
 };

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { BookOpen, QrCode, ArrowRight, Layers, ChevronLeft, ChevronRight } from 'lucide-react';
 import { MOCK_BOOKS, Book } from '../data/mockBooks';
-import { BookQRCodeModal } from './BookQRCodeModal';
+import  BookQRCodeModal from './BookQRCodeModal';
 
 export const BrowseBooksSection: React.FC = () => {
   const navigate = useNavigate();

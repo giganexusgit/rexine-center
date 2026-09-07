@@ -14,7 +14,7 @@ import {
 } from 'lucide-react';
 import { getBookProduct, getRelatedProducts } from '../data/mockBooks';
 import { Product } from '../types';
-import { BookQRCodeModal } from '../components/BookQRCodeModal';
+import  BookQRCodeModal  from '../components/BookQRCodeModal';
 
 interface BookProductDetailPageProps {
   onOpenEnquiry: (product?: Product | null) => void;

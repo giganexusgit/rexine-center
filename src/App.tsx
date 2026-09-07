@@ -1,7 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import { BrowserRouter, Routes, Route, useLocation, useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  useLocation,
+  useNavigate,
+} from 'react-router-dom';
 import Lenis from 'lenis';
-import { setLenis } from "./lib/lenis";
+import { setLenis } from './lib/lenis';
 
 import { CustomCursor } from './components/CustomCursor';
 import { Preloader } from './components/Preloader';
@@ -12,7 +18,7 @@ import { FloatingElements } from './components/FloatingElements';
 // Pages
 import { HomePage } from './pages/HomePage';
 import { BooksPage } from './pages/BooksPage';
-import { BookDetailPage } from './pages/BookDetailPage';
+import BookDetailPage from './pages/BookDetailPage';
 import { BookProductDetailPage } from './pages/BookProductDetailPage';
 import { ApplicationsPage } from './pages/ApplicationsPage';
 import { CustomizerPage } from './pages/CustomizerPage';
@@ -21,9 +27,9 @@ import { AboutPage } from './pages/AboutPage';
 import { ContactPage } from './pages/ContactPage';
 import { CitiesSupplyPage } from './pages/CitiesSupplyPage';
 import { SitemapPage } from './pages/SitemapPage';
+import { BlogDetailPage } from './pages/BlogDetailPage';
 
-// Modals & Drawers
-import { WishlistDrawer } from './components/WishlistDrawer';
+// Modals
 import { QuickEnquiryModal } from './components/QuickEnquiryModal';
 import { ProductDetailModal } from './components/ProductDetailModal';
 import { BookScannerModal } from './components/BookScannerModal';
@@ -32,253 +38,361 @@ import { SearchModal } from './components/SearchModal';
 
 import { PRODUCTS } from './data/mockData';
 import { Product } from './types';
-import { BlogDetailPage } from './pages/BlogDetailPage';
 
-// ScrollToTop Component
+// ============================================================
+// SCROLL TO TOP
+// ============================================================
+
 function ScrollToTop() {
   const { pathname } = useLocation();
 
   useEffect(() => {
-    window.scrollTo(0, 0);
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: 'instant',
+    });
   }, [pathname]);
 
   return null;
 }
 
+// ============================================================
+// MAIN APP CONTENT
+// ============================================================
+
 function MainAppContent() {
   const [loading, setLoading] = useState(true);
-  const [wishlistIds, setWishlistIds] = useState<string[]>(['p1', 'p3']);
 
-  // Modals state
+  const [wishlistIds, setWishlistIds] = useState<string[]>([
+    'p1',
+    'p3',
+  ]);
+
+  // ============================================================
+  // MODAL STATE
+  // ============================================================
+
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchInitialQuery, setSearchInitialQuery] = useState('');
+
   const [wishlistOpen, setWishlistOpen] = useState(false);
+
   const [enquiryOpen, setEnquiryOpen] = useState(false);
-  const [selectedEnquiryProduct, setSelectedEnquiryProduct] = useState<Product | null>(null);
-  const [detailProduct, setDetailProduct] = useState<Product | null>(null);
-  const [bookScannerOpen, setBookScannerOpen] = useState(false);
+  const [selectedEnquiryProduct, setSelectedEnquiryProduct] =
+    useState<Product | null>(null);
+
+  const [detailProduct, setDetailProduct] =
+    useState<Product | null>(null);
+
+  const [bookScannerOpen, setBookScannerOpen] =
+    useState(false);
+
   const [videoOpen, setVideoOpen] = useState(false);
 
   const navigate = useNavigate();
 
-  // Initialize Lenis Smooth Scroll
+  // ============================================================
+  // LENIS
+  // ============================================================
+
   useEffect(() => {
     const lenis = new Lenis({
       duration: 1.2,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      easing: (t: number) =>
+        Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       smoothWheel: true,
     });
-    setLenis(lenis)
-    function raf(time: number) {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
-    }
 
-    requestAnimationFrame(raf);
+    setLenis(lenis);
+
+    let animationFrameId: number;
+
+    const raf = (time: number) => {
+      lenis.raf(time);
+      animationFrameId = requestAnimationFrame(raf);
+    };
+
+    animationFrameId = requestAnimationFrame(raf);
 
     return () => {
+      cancelAnimationFrame(animationFrameId);
       lenis.destroy();
     };
   }, []);
 
+  // ============================================================
+  // WISHLIST
+  // ============================================================
+
   const handleToggleWishlist = (productId: string) => {
-    setWishlistIds((prev) =>
-      prev.includes(productId) ? prev.filter((id) => id !== productId) : [...prev, productId]
+    setWishlistIds((previous) =>
+      previous.includes(productId)
+        ? previous.filter((id) => id !== productId)
+        : [...previous, productId]
     );
   };
+
+  // ============================================================
+  // SEARCH
+  // ============================================================
 
   const handleSearchSubmit = (query: string) => {
     setSearchInitialQuery(query);
     setSearchOpen(true);
   };
 
-  const handleOpenEnquiryWithProduct = (product?: Product | null) => {
+  // ============================================================
+  // ENQUIRY
+  // ============================================================
+
+  const handleOpenEnquiryWithProduct = (
+    product?: Product | null
+  ) => {
     setSelectedEnquiryProduct(product || null);
     setEnquiryOpen(true);
   };
 
-  const wishlistProducts = PRODUCTS.filter((p) => wishlistIds.includes(p.id));
+  // ============================================================
+  // WISHLIST PRODUCTS
+  // ============================================================
+
+  const wishlistProducts = PRODUCTS.filter((product) =>
+    wishlistIds.includes(product.id)
+  );
 
   return (
     <div className="relative min-h-screen bg-[#F8F6F2] text-[#111111] antialiased selection:bg-[#C67C4E] selection:text-white">
       <ScrollToTop />
 
-      {/* Custom Cursor */}
       <CustomCursor />
 
-      {/* Preloader */}
-      <Preloader onComplete={() => setLoading(false)} />
+      <Preloader
+        onComplete={() => setLoading(false)}
+      />
 
       {!loading && (
-        <div className="flex flex-col min-h-screen">
-          {/* 1. Shared Navbar */}
+        <div className="flex min-h-screen flex-col">
+
+          {/* ======================================================
+              NAVBAR
+          ====================================================== */}
+
           <Navbar
             onOpenSearch={() => setSearchOpen(true)}
             onOpenWishlist={() => setWishlistOpen(true)}
-            onOpenEnquiry={() => handleOpenEnquiryWithProduct(null)}
-            // wishlistCount={wishlistIds.length}
+            onOpenEnquiry={() =>
+              handleOpenEnquiryWithProduct(null)
+            }
           />
 
-          {/* 2. Dynamic Page Routes */}
+          {/* ======================================================
+              ROUTES
+          ====================================================== */}
+
           <main className="flex-grow">
             <Routes>
+
+              {/* HOME */}
               <Route
                 path="/"
                 element={
                   <HomePage
-                    onOpenBookScanner={() => setBookScannerOpen(true)}
-                    onOpenEnquiry={handleOpenEnquiryWithProduct}
-                    onSearchSubmit={handleSearchSubmit}
-                    onSelectProduct={(p) => setDetailProduct(p)}
-                    onSelectApplication={(appTitle) => {
-                      navigate('/applications');
-                    }}
+                    onOpenBookScanner={() =>
+                      setBookScannerOpen(true)
+                    }
+                    onOpenEnquiry={
+                      handleOpenEnquiryWithProduct
+                    }
+                    onSearchSubmit={
+                      handleSearchSubmit
+                    }
+                    onSelectProduct={(product) =>
+                      setDetailProduct(product)
+                    }
+                    onSelectApplication={() =>
+                      navigate('/applications')
+                    }
                   />
                 }
               />
 
+              {/* BOOKS */}
               <Route
                 path="/books"
                 element={
                   <BooksPage
-                    onOpenEnquiry={handleOpenEnquiryWithProduct}
+                    onOpenEnquiry={
+                      handleOpenEnquiryWithProduct
+                    }
                   />
                 }
               />
 
+              {/* BOOK DETAIL */}
               <Route
                 path="/books/:slug"
-                element={
-                  <BookDetailPage
-                    onSelectProduct={(p) => setDetailProduct(p)}
-                    onOpenEnquiry={handleOpenEnquiryWithProduct}
-                  />
-                }
+                element={<BookDetailPage />}
               />
+
+              {/* BOOK PRODUCT DETAIL */}
               <Route
                 path="/books/:slug/:productCode"
                 element={
                   <BookProductDetailPage
-                    // isWishlisted={detailProduct ? wishlistIds.includes(detailProduct.id) : false}
-                    // onToggleWishlist={handleToggleWishlist}
-                    onOpenEnquiry={handleOpenEnquiryWithProduct}
-                    onSelectProduct={(p) => setDetailProduct(p)}
+                    onOpenEnquiry={
+                      handleOpenEnquiryWithProduct
+                    }
+                    onSelectProduct={(product) =>
+                      setDetailProduct(product)
+                    }
                   />
                 }
-              /> 
+              />
 
+              {/* APPLICATIONS */}
+              <Route
+                path="/applications"
+                element={
+                  <ApplicationsPage
+                    onOpenEnquiry={
+                      handleOpenEnquiryWithProduct
+                    }
+                  />
+                }
+              />
 
-<Route
-  path="/applications"
-  element={
-    <ApplicationsPage
-      onOpenEnquiry={handleOpenEnquiryWithProduct}
-    />
-  }
-/>
+              <Route
+                path="/applications/:applicationId"
+                element={
+                  <ApplicationsPage
+                    onOpenEnquiry={
+                      handleOpenEnquiryWithProduct
+                    }
+                  />
+                }
+              />
 
-<Route
-  path="/applications/:applicationId"
-  element={
-    <ApplicationsPage
-      onOpenEnquiry={handleOpenEnquiryWithProduct}
-    />
-  }
-/>
+              {/* CUSTOMIZER */}
               <Route
                 path="/customizer"
                 element={
                   <CustomizerPage
-                    onOpenEnquiry={handleOpenEnquiryWithProduct}
+                    onOpenEnquiry={
+                      handleOpenEnquiryWithProduct
+                    }
                   />
                 }
               />
 
+              {/* RESOURCES */}
               <Route
                 path="/resources"
                 element={
                   <ResourcesPage
-                    onOpenEnquiry={handleOpenEnquiryWithProduct}
-                    onOpenBookScanner={() => setBookScannerOpen(true)}
-                    onOpenVideoModal={() => setVideoOpen(true)}
+                    onOpenEnquiry={
+                      handleOpenEnquiryWithProduct
+                    }
+                    onOpenBookScanner={() =>
+                      setBookScannerOpen(true)
+                    }
+                    onOpenVideoModal={() =>
+                      setVideoOpen(true)
+                    }
                   />
                 }
               />
-              <Route 
-                path="/resources/:slug" 
-                element={<BlogDetailPage
-                 />
-                }
-               />
 
+              {/* BLOG */}
+              <Route
+                path="/resources/:slug"
+                element={<BlogDetailPage />}
+              />
+
+              {/* ABOUT */}
               <Route
                 path="/about"
                 element={
                   <AboutPage
-                    onOpenEnquiry={handleOpenEnquiryWithProduct}
+                    onOpenEnquiry={
+                      handleOpenEnquiryWithProduct
+                    }
                   />
                 }
               />
 
+              {/* CONTACT */}
               <Route
                 path="/contact"
                 element={
                   <ContactPage
-                    onOpenEnquiry={handleOpenEnquiryWithProduct}
+                    onOpenEnquiry={
+                      handleOpenEnquiryWithProduct
+                    }
                   />
                 }
               />
 
+              {/* SUPPLY LOCATIONS */}
               <Route
                 path="/supply-locations"
                 element={
                   <CitiesSupplyPage
-                    onOpenEnquiry={handleOpenEnquiryWithProduct}
+                    onOpenEnquiry={
+                      handleOpenEnquiryWithProduct
+                    }
                   />
                 }
               />
 
+              {/* SITEMAP */}
               <Route
                 path="/sitemap"
                 element={
                   <SitemapPage
-                    onOpenEnquiry={handleOpenEnquiryWithProduct}
+                    onOpenEnquiry={
+                      handleOpenEnquiryWithProduct
+                    }
                   />
                 }
               />
 
-              {/* Catch-all fallback route to Home */}
+              {/* FALLBACK */}
               <Route
                 path="*"
                 element={
                   <HomePage
-                    onOpenBookScanner={() => setBookScannerOpen(true)}
-                    onOpenEnquiry={handleOpenEnquiryWithProduct}
-                    onSearchSubmit={handleSearchSubmit}
-                    onSelectProduct={(p) => setDetailProduct(p)}
-                    onSelectApplication={(appTitle) => navigate('/applications')}
+                    onOpenBookScanner={() =>
+                      setBookScannerOpen(true)
+                    }
+                    onOpenEnquiry={
+                      handleOpenEnquiryWithProduct
+                    }
+                    onSearchSubmit={
+                      handleSearchSubmit
+                    }
+                    onSelectProduct={(product) =>
+                      setDetailProduct(product)
+                    }
+                    onSelectApplication={() =>
+                      navigate('/applications')
+                    }
                   />
                 }
               />
+
             </Routes>
           </main>
 
-          {/* 3. Shared Footer */}
           <Footer />
 
-          {/* Floating Action WhatsApp & Back to Top */}
           <FloatingElements />
         </div>
       )}
 
-      {/* Modals & Drawers */}
-      {/* <WishlistDrawer
-        isOpen={wishlistOpen}
-        onClose={() => setWishlistOpen(false)}
-        wishlistProducts={wishlistProducts}
-        onRemoveFromWishlist={handleToggleWishlist}
-        onOpenEnquiry={handleOpenEnquiryWithProduct}
-      /> */}
+      {/* ========================================================
+          MODALS
+      ======================================================== */}
 
       <QuickEnquiryModal
         isOpen={enquiryOpen}
@@ -289,9 +403,9 @@ function MainAppContent() {
       <ProductDetailModal
         product={detailProduct}
         onClose={() => setDetailProduct(null)}
-        // isWishlisted={detailProduct ? wishlistIds.includes(detailProduct.id) : false}
-        // onToggleWishlist={handleToggleWishlist}
-        onOpenEnquiry={handleOpenEnquiryWithProduct}
+        onOpenEnquiry={
+          handleOpenEnquiryWithProduct
+        }
       />
 
       <BookScannerModal
@@ -307,12 +421,18 @@ function MainAppContent() {
       <SearchModal
         isOpen={searchOpen}
         onClose={() => setSearchOpen(false)}
-        onSelectProduct={(p) => setDetailProduct(p)}
+        onSelectProduct={(product) =>
+          setDetailProduct(product)
+        }
         initialQuery={searchInitialQuery}
       />
     </div>
   );
 }
+
+// ============================================================
+// APP ROOT
+// ============================================================
 
 export default function App() {
   return (

@@ -1,204 +1,549 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import { X, QrCode, CheckCircle2, Copy, FileText, ArrowRight, Camera, Sparkles } from 'lucide-react';
-import { PDFViewerModal } from './PDFViewerModal';
-import { SITE_URL } from '../config';
+import React, { useState } from "react";
+import {
+  X,
+  Copy,
+  Check,
+  ArrowRight,
+  FileText,
+  Camera,
+  QrCode,
+} from "lucide-react";
+import type { Book } from "../data/mockBooks";
 
 interface BookQRCodeModalProps {
   isOpen: boolean;
   onClose: () => void;
-  book: {
-    slug: string;
-    title: string;
-    code: string;
-    category?: string;
-    coverImage?: string;
-    pdfPath?: string;
-    designCount?: number;
-  } | null;
+
+  book?: Book | null;
+
+  title?: string;
+  code?: string;
+  category?: string;
+  pdfUrl?: string;
+  pageCount?: number;
+
+  onOpenCatalogue?: () => void;
 }
 
-export const BookQRCodeModal: React.FC<BookQRCodeModalProps> = ({ isOpen, onClose, book }) => {
-  const [scanning, setScanning] = useState(false);
+export default function BookQRCodeModal({
+  isOpen,
+  onClose,
+  book,
+  title,
+  code,
+  category,
+  pdfUrl,
+  pageCount,
+  onOpenCatalogue,
+}: BookQRCodeModalProps) {
   const [copied, setCopied] = useState(false);
-  const [showPDF, setShowPDF] = useState(false);
 
-  // ESC key closes modal
-  const handleKeyDown = useCallback(
-    (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onClose();
-    },
-    [onClose]
-  );
+  /*
+   * IMPORTANT:
+   * Do not put hooks after "if (!isOpen) return null".
+   * This fixes the React "change in order of Hooks" error.
+   */
 
-  useEffect(() => {
-    if (isOpen) document.addEventListener('keydown', handleKeyDown);
-    return () => document.removeEventListener('keydown', handleKeyDown);
-  }, [isOpen, handleKeyDown]);
+  const bookTitle =
+    book?.title ||
+    title ||
+    "Catalogue";
 
-  if (!isOpen || !book) return null;
+  const bookCode =
+    book?.code ||
+    code ||
+    "";
 
-  // PDF URL — used for QR image, displayed URL, copy button, and simulate-scan
-  const pdfUrl = book.pdfPath
-    ? `${SITE_URL.replace(/\/$/, '')}${book.pdfPath}`
-    : `${SITE_URL.replace(/\/$/, '')}/book/${book.slug}/catalogue.pdf`;
+  const bookCategory =
+    book?.category ||
+    category ||
+    "REXINE CENTRE";
 
-  const qrImageUrl = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(
-    pdfUrl
-  )}&color=000000&bgcolor=FFFFFF`;
+  const catalogueUrl =
+    pdfUrl ||
+    book?.pdfPath ||
+    `${window.location.origin}/book/${bookCode.toLowerCase()}/catalogue.pdf`;
 
-  // Simulate scan: opens PDF directly in a new tab (mirrors real QR scan behaviour)
-  const handleScanAndOpen = () => {
-    setScanning(true);
-    setTimeout(() => {
-      setScanning(false);
-      window.open(pdfUrl, '_blank', 'noopener,noreferrer');
-    }, 800);
+  const swatchCount =
+    book?.designCount ||
+    pageCount ||
+    0;
+
+  const qrImageUrl =
+    `https://api.qrserver.com/v1/create-qr-code/?size=500x500&margin=12&data=${encodeURIComponent(
+      catalogueUrl
+    )}`;
+
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(catalogueUrl);
+
+      setCopied(true);
+
+      window.setTimeout(() => {
+        setCopied(false);
+      }, 1800);
+    } catch {
+      setCopied(false);
+    }
   };
 
-  const handleCopy = () => {
-    navigator.clipboard.writeText(pdfUrl);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+  const handleSimulateScan = () => {
+    window.open(
+      catalogueUrl,
+      "_blank",
+      "noopener,noreferrer"
+    );
   };
+
+  if (!isOpen) return null;
 
   return (
-    <>
-      {/* Backdrop — cursor:auto keeps cursor visible over the modal */}
+    <div
+      className="
+        fixed
+        inset-0
+        z-[200]
+        flex
+        items-center
+        justify-center
+        bg-black/75
+        px-3
+        py-3
+        backdrop-blur-md
+      "
+      onMouseDown={(event) => {
+        if (event.target === event.currentTarget) {
+          onClose();
+        }
+      }}
+    >
+      {/* =====================================================
+          COMPACT MODAL
+      ====================================================== */}
+
       <div
-        className="fixed inset-0 z-[99] flex items-center justify-center p-4 bg-black/85 backdrop-blur-md animate-fade-in"
-        style={{ cursor: 'auto' }}
-        onMouseDown={(e) => { if (e.target === e.currentTarget) onClose(); }}
-        role="dialog"
-        aria-modal="true"
-        aria-label={`QR Code for ${book.title}`}
+        className="
+          relative
+          flex
+          w-full
+          max-w-[485px]
+          max-h-[calc(100vh-24px)]
+          flex-col
+          overflow-hidden
+          rounded-[24px]
+          border
+          border-white/15
+          bg-[#111111]
+          text-white
+          shadow-[0_25px_80px_rgba(0,0,0,0.65)]
+        "
       >
+        {/* ===================================================
+            HEADER
+        ==================================================== */}
+
         <div
-          className="w-full max-w-md bg-[#111111] text-white rounded-3xl shadow-2xl overflow-hidden border border-white/15 relative"
-          style={{ cursor: 'auto' }}
+          className="
+            flex
+            shrink-0
+            items-center
+            justify-between
+            border-b
+            border-white/10
+            bg-[#111111]
+            px-5
+            py-4
+          "
         >
-          
-          {/* Header */}
-          <div className="p-5 border-b border-white/10 flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <div className="w-9 h-9 rounded-full bg-[#C67C4E] flex items-center justify-center text-white shrink-0 shadow-md">
-                <QrCode className="w-5 h-5 text-amber-200" />
-              </div>
-              <div>
-                <h3 className="font-button text-xs font-bold uppercase tracking-widest text-amber-300">
-                  PHYSICAL BOOK QR CODE
-                </h3>
-                <p className="font-sans text-[11px] text-gray-400">
-                  Book Code: <span className="text-white font-mono font-bold">{book.code}</span>
-                </p>
-              </div>
+          <div className="flex items-center gap-3">
+            {/* Icon */}
+
+            <div
+              className="
+                flex
+                h-10
+                w-10
+                shrink-0
+                items-center
+                justify-center
+                rounded-full
+                bg-[#C67C4E]
+                shadow-md
+              "
+            >
+              <QrCode
+                size={20}
+                strokeWidth={2.3}
+                className="text-amber-200"
+              />
             </div>
 
-            <button
-              onClick={onClose}
-              className="p-2 text-gray-400 hover:text-white rounded-full hover:bg-white/10 transition-colors"
-            >
-              <X className="w-5 h-5" />
-            </button>
-          </div>
+            {/* Heading */}
 
-          {/* Content Body */}
-          <div className="p-6 space-y-5 text-center">
-            
-            <div className="space-y-1">
-              <span className="text-[10px] font-button font-bold text-[#C67C4E] uppercase tracking-widest bg-[#C67C4E]/20 px-2.5 py-0.5 rounded border border-[#C67C4E]/30 inline-block">
-                {book.category || '100% Polyester Upholstery'}
-              </span>
-              <h2 className="font-serif text-xl font-bold text-white">
-                {book.title}
+            <div>
+              <h2
+                className="
+                  text-[13px]
+                  font-extrabold
+                  uppercase
+                  tracking-[0.07em]
+                  text-[#F4C21D]
+                "
+              >
+                Physical Book QR Code
               </h2>
-            <p className="text-xs text-gray-400 font-sans">
-                Scan QR code to open the PDF catalogue directly ({book.designCount || 35}+ swatches)
+
+              <p className="mt-0.5 text-[10px] text-white/50">
+                Book Code:{" "}
+                <span className="font-bold text-white">
+                  {bookCode}
+                </span>
               </p>
             </div>
+          </div>
 
-            {/* Genuine Scannable QR Code Image */}
-            <div className="relative mx-auto w-64 h-64 bg-white p-3 rounded-2xl shadow-2xl border-4 border-[#C67C4E]/50 flex flex-col items-center justify-center group overflow-hidden">
-              
-              {/* Animated Laser Scanning Line */}
-              {scanning && (
-                <div className="absolute inset-x-0 h-1 bg-[#C67C4E] shadow-[0_0_20px_#C67C4E] z-20 animate-bounce" />
-              )}
+          {/* Close */}
 
-              <img
-                src={qrImageUrl}
-                alt={`QR Code for ${book.title} PDF catalogue`}
-                className="w-full h-full object-contain"
-              />
+          <button
+            type="button"
+            onClick={onClose}
+            aria-label="Close QR modal"
+            className="
+              flex
+              h-8
+              w-8
+              items-center
+              justify-center
+              rounded-full
+              text-white/50
+              transition
+              hover:bg-white/10
+              hover:text-white
+            "
+          >
+            <X size={20} />
+          </button>
+        </div>
 
-              {/* Center Logo Badge */}
-              <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                <div className="bg-[#111111] text-[#C67C4E] px-2.5 py-1 rounded-xl border border-white/20 shadow-2xl flex items-center gap-1 font-button text-[9px] font-bold uppercase tracking-wider">
-                  <QrCode className="w-3.5 h-3.5 text-amber-300" />
-                  <span>REXINE</span>
+        {/* ===================================================
+            MAIN CONTENT
+        ==================================================== */}
+
+        <div
+          className="
+            overflow-y-auto
+            px-5
+            py-5
+          "
+          style={{
+            scrollbarWidth: "none",
+          }}
+        >
+          {/* Category */}
+
+          <div className="flex justify-center">
+            <span
+              className="
+                rounded-md
+                border
+                border-[#C67C4E]/40
+                bg-[#C67C4E]/10
+                px-3
+                py-1
+                text-[9px]
+                font-bold
+                uppercase
+                tracking-[0.08em]
+                text-[#C67C4E]
+              "
+            >
+              {bookCategory}
+            </span>
+          </div>
+
+          {/* Title */}
+
+          <h1
+            className="
+              mt-3
+              text-center
+              text-[22px]
+              font-extrabold
+              leading-tight
+              tracking-tight
+              text-white
+            "
+          >
+            {bookTitle}
+          </h1>
+
+          {/* Description */}
+
+          <p
+            className="
+              mt-1.5
+              text-center
+              text-[12px]
+              leading-5
+              text-white/50
+            "
+          >
+            Scan QR code to open the PDF catalogue directly
+            {swatchCount > 0
+              ? ` (${swatchCount}+ swatches)`
+              : ""}
+          </p>
+
+          {/* =================================================
+              QR CODE
+          ================================================== */}
+
+          <div className="mt-5 flex justify-center">
+            <div
+              className="
+                rounded-[18px]
+                border-[4px]
+                border-[#E9C2A9]
+                bg-white
+                p-2.5
+                shadow-[0_12px_35px_rgba(0,0,0,0.35)]
+              "
+            >
+              <div
+                className="
+                  relative
+                  overflow-hidden
+                  rounded-md
+                  bg-white
+                "
+              >
+                <img
+                  src={qrImageUrl}
+                  alt={`QR code for ${bookTitle}`}
+                  className="
+                    block
+                    h-[250px]
+                    w-[250px]
+                    object-contain
+                  "
+                />
+
+                {/* Centre Branding */}
+
+                <div
+                  className="
+                    absolute
+                    left-1/2
+                    top-1/2
+                    flex
+                    -translate-x-1/2
+                    -translate-y-1/2
+                    items-center
+                    gap-1
+                    rounded-md
+                    bg-[#111111]
+                    px-2
+                    py-1
+                    shadow-lg
+                  "
+                >
+                  <QrCode
+                    size={11}
+                    className="text-[#F4C21D]"
+                  />
+
+                  <span
+                    className="
+                      text-[8px]
+                      font-extrabold
+                      uppercase
+                      tracking-wider
+                      text-[#C67C4E]
+                    "
+                  >
+                    REXINE
+                  </span>
                 </div>
               </div>
             </div>
-
-            {/* PDF URL Box */}
-            <div className="bg-white/5 p-3 rounded-2xl border border-white/10 text-xs font-mono text-amber-200/90 truncate flex items-center justify-between gap-2">
-              <span className="truncate text-left text-[11px]">{pdfUrl}</span>
-              <button
-                onClick={handleCopy}
-                className="p-1.5 bg-white/10 hover:bg-white/20 text-white rounded-lg transition-colors shrink-0 cursor-pointer"
-                title="Copy Link"
-              >
-                {copied ? <CheckCircle2 className="w-4 h-4 text-emerald-400" /> : <Copy className="w-4 h-4" />}
-              </button>
-            </div>
-
-            {/* Action Buttons */}
-            <div className="space-y-2.5 pt-1">
-              <button
-                onClick={handleScanAndOpen}
-                disabled={scanning}
-                className="w-full bg-[#C67C4E] hover:bg-[#b06a3d] text-white py-3.5 rounded-2xl font-button text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 transition-all shadow-lg cursor-pointer disabled:opacity-50"
-              >
-                {scanning ? (
-                  <>
-                    <Sparkles className="w-4 h-4 animate-spin text-amber-200" />
-                    <span>SCANNING QR & OPENING BOOK...</span>
-                  </>
-                ) : (
-                  <>
-                    <Camera className="w-4 h-4" />
-                    <span>SIMULATE SCAN & OPEN PDF CATALOGUE</span>
-                    <ArrowRight className="w-4 h-4" />
-                  </>
-                )}
-              </button>
-
-              <button
-                onClick={() => setShowPDF(true)}
-                className="w-full bg-white/10 hover:bg-white/20 text-white py-3.5 rounded-2xl font-button text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 transition-all border border-white/15 cursor-pointer"
-              >
-                <FileText className="w-4 h-4 text-amber-300" />
-                <span>OPEN CATALOGUE PDF VIEWER</span>
-              </button>
-
-              <p className="text-[10px] text-gray-400 font-sans">
-                Scanning or clicking opens all swatches, wholesale rates, and PDF catalogue.
-              </p>
-            </div>
-
           </div>
 
+          {/* =================================================
+              URL
+          ================================================== */}
+
+          <div
+            className="
+              mt-5
+              flex
+              h-[48px]
+              items-center
+              gap-2
+              rounded-[16px]
+              border
+              border-white/10
+              bg-[#1D1D1D]
+              px-3
+            "
+          >
+            <p
+              className="
+                min-w-0
+                flex-1
+                overflow-hidden
+                text-ellipsis
+                whitespace-nowrap
+                font-mono
+                text-[10px]
+                text-[#F4C21D]
+              "
+            >
+              {catalogueUrl}
+            </p>
+
+            <button
+              type="button"
+              onClick={handleCopy}
+              aria-label="Copy catalogue link"
+              className="
+                flex
+                h-8
+                w-8
+                shrink-0
+                items-center
+                justify-center
+                rounded-lg
+                bg-white/10
+                text-white
+                transition
+                hover:bg-white/20
+              "
+            >
+              {copied ? (
+                <Check
+                  size={16}
+                  className="text-green-400"
+                />
+              ) : (
+                <Copy size={16} />
+              )}
+            </button>
+          </div>
+
+          {/* =================================================
+              BUTTONS
+          ================================================== */}
+
+          <div className="mt-4 space-y-2.5">
+            {/* Primary */}
+
+            <button
+              type="button"
+              onClick={handleSimulateScan}
+              className="
+                group
+                flex
+                h-[49px]
+                w-full
+                items-center
+                justify-center
+                gap-2
+                rounded-[15px]
+                bg-[#C67C4E]
+                px-4
+                text-[12px]
+                font-extrabold
+                uppercase
+                tracking-wide
+                text-white
+                shadow-lg
+                shadow-[#C67C4E]/20
+                transition
+                duration-200
+                hover:bg-[#B66C40]
+              "
+            >
+              <Camera size={17} />
+
+              <span>
+                Simulate Scan &amp; Open PDF Catalogue
+              </span>
+
+              <ArrowRight
+                size={17}
+                className="
+                  transition-transform
+                  duration-200
+                  group-hover:translate-x-1
+                "
+              />
+            </button>
+
+            {/* Secondary */}
+
+            <button
+              type="button"
+              onClick={() => {
+                if (onOpenCatalogue) {
+                  onOpenCatalogue();
+                } else {
+                  window.open(
+                    catalogueUrl,
+                    "_blank",
+                    "noopener,noreferrer"
+                  );
+                }
+              }}
+              className="
+                flex
+                h-[47px]
+                w-full
+                items-center
+                justify-center
+                gap-2
+                rounded-[15px]
+                border
+                border-white/15
+                bg-white/[0.08]
+                px-4
+                text-[12px]
+                font-extrabold
+                uppercase
+                tracking-wide
+                text-white
+                transition
+                hover:border-white/25
+                hover:bg-white/[0.13]
+              "
+            >
+              <FileText
+                size={17}
+                className="text-[#F4C21D]"
+              />
+
+              Open Catalogue PDF Viewer
+            </button>
+          </div>
+
+          {/* =================================================
+              FOOTER
+          ================================================== */}
+
+          <p
+            className="
+              mt-3
+              text-center
+              text-[9px]
+              leading-4
+              text-white/40
+            "
+          >
+            Scanning or clicking opens all swatches,
+            wholesale rates, and PDF catalogue.
+          </p>
         </div>
       </div>
-
-      {/* PDF Modal */}
-      <PDFViewerModal
-        isOpen={showPDF}
-        onClose={() => setShowPDF(false)}
-        title={book.title}
-        pdfUrl={book.pdfPath || '/book/cinefab-651/catalogue.pdf'}
-        code={book.code}
-        pageCount={book.designCount ? book.designCount + 4 : 39}
-      />
-    </>
+    </div>
   );
-};
+}

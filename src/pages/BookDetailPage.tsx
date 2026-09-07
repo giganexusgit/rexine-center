@@ -15,8 +15,8 @@ import {
 } from 'lucide-react';
 import { getBookBySlug, MOCK_BOOKS, BookProduct } from '../data/mockBooks';
 import { Product } from '../types';
-import { BookQRCodeModal } from '../components/BookQRCodeModal';
-import { PDFViewerModal } from '../components/PDFViewerModal';
+import BookQRCodeModal  from '../components/BookQRCodeModal';
+import  PDFViewerModal  from '../components/PDFViewerModal';
 
 interface BookDetailPageProps {
   onSelectProduct: (product: Product) => void;
