@@ -59,10 +59,20 @@ export default function BookQRCodeModal({
     category ||
     "REXINE CENTRE";
 
-  const catalogueUrl =
+  const origin =
+    typeof window !== 'undefined' && window.location.origin
+      ? window.location.origin
+      : 'https://rexinecentre.com';
+
+  const rawPath =
     pdfUrl ||
     book?.pdfPath ||
-    `${window.location.origin}/book/${bookCode.toLowerCase()}/catalogue.pdf`;
+    `/book/${(book?.slug || bookCode).toLowerCase()}/catalogue.pdf`;
+
+  const catalogueUrl =
+    rawPath.startsWith('http://') || rawPath.startsWith('https://')
+      ? rawPath
+      : `${origin}/${rawPath.replace(/^\//, '')}`;
 
   const swatchCount =
     book?.designCount ||
