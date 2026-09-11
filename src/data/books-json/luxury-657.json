@@ -1,8 +1,348 @@
 {
-  "id": "luxury-657",
-  "name": "LUXURY",
-  "code": "657",
-  "status": "coming-soon",
+  "slug": "luxury-657",
   "title": "LUXURY-657",
-  "message": "Detailed information, specifications, colours and swatches for the LUXURY-657 collection will be available soon."
+  "code": "LUXURY-657",
+  "category": "100% Polyester Upholstery",
+  "year": "2026 Master Edition",
+  "description": "Official Rexine Centre LUXURY-657 sample book featuring 18 premium 100% Polyester upholstery swatches. Swatch pages were extracted from the catalogue while image/object pages were excluded.",
+  "coverImage": "/book/luxury-657/cover.png",
+  "fallbackCover": "src/assets/images/rexine_burgundy_wine_1785227406807.jpg",
+  "pdfPath": "/book/luxury-657/catalogue.pdf",
+  "designCount": 18,
+  "salePrice": 0,
+  "specs": {
+    "thickness": "",
+    "width": "140 CMS",
+    "backing": "100% Polyester",
+    "finish": "380 GSM",
+    "targetUse": "Sofas, Chairs & Interior Upholstery",
+    "martindale": "50,000 Rubs"
+  },
+  "products": [
+    {
+      "code": "657-01",
+      "name": "LUXURY-657 01",
+      "shadeName": "SR.NO: 01 - Ivory Cream",
+      "category": "100% Polyester Upholstery",
+      "rrp": 0,
+      "unit": "meter",
+      "description": "Premium swatch (657-01) from official catalogue 'LUXURY-657'. Colour represented as Ivory Cream, with 380 GSM construction, 140 CMS width and 50,000 Martindale rub resistance.",
+      "image": "/book/luxury-657/products/657-01.png",
+      "colors": [
+        {
+          "name": "Ivory Cream",
+          "hex": "#E6E3D5"
+        }
+      ],
+      "specs": {},
+      "inStock": true
+    },
+    {
+      "code": "657-02",
+      "name": "LUXURY-657 02",
+      "shadeName": "SR.NO: 02 - Soft Pearl",
+      "category": "100% Polyester Upholstery",
+      "rrp": 0,
+      "unit": "meter",
+      "description": "Premium swatch (657-02) from official catalogue 'LUXURY-657'. Colour represented as Soft Pearl, with 380 GSM construction, 140 CMS width and 50,000 Martindale rub resistance.",
+      "image": "/book/luxury-657/products/657-02.png",
+      "colors": [
+        {
+          "name": "Soft Pearl",
+          "hex": "#DDDAD2"
+        }
+      ],
+      "specs": {},
+      "inStock": true
+    },
+    {
+      "code": "657-03",
+      "name": "LUXURY-657 03",
+      "shadeName": "SR.NO: 03 - Warm Linen",
+      "category": "100% Polyester Upholstery",
+      "rrp": 0,
+      "unit": "meter",
+      "description": "Premium swatch (657-03) from official catalogue 'LUXURY-657'. Colour represented as Warm Linen, with 380 GSM construction, 140 CMS width and 50,000 Martindale rub resistance.",
+      "image": "/book/luxury-657/products/657-03.png",
+      "colors": [
+        {
+          "name": "Warm Linen",
+          "hex": "#D0CBBE"
+        }
+      ],
+      "specs": {},
+      "inStock": true
+    },
+    {
+      "code": "657-04",
+      "name": "LUXURY-657 04",
+      "shadeName": "SR.NO: 04 - Sand Beige",
+      "category": "100% Polyester Upholstery",
+      "rrp": 0,
+      "unit": "meter",
+      "description": "Premium swatch (657-04) from official catalogue 'LUXURY-657'. Colour represented as Sand Beige, with 380 GSM construction, 140 CMS width and 50,000 Martindale rub resistance.",
+      "image": "/book/luxury-657/products/657-04.png",
+      "colors": [
+        {
+          "name": "Sand Beige",
+          "hex": "#B3A58E"
+        }
+      ],
+      "specs": {},
+      "inStock": true
+    },
+    {
+      "code": "657-05",
+      "name": "LUXURY-657 05",
+      "shadeName": "SR.NO: 05 - Taupe Stone",
+      "category": "100% Polyester Upholstery",
+      "rrp": 0,
+      "unit": "meter",
+      "description": "Premium swatch (657-05) from official catalogue 'LUXURY-657'. Colour represented as Taupe Stone, with 380 GSM construction, 140 CMS width and 50,000 Martindale rub resistance.",
+      "image": "/book/luxury-657/products/657-05.png",
+      "colors": [
+        {
+          "name": "Taupe Stone",
+          "hex": "#998C7B"
+        }
+      ],
+      "specs": {},
+      "inStock": true
+    },
+    {
+      "code": "657-06",
+      "name": "LUXURY-657 06",
+      "shadeName": "SR.NO: 06 - Warm Grey",
+      "category": "100% Polyester Upholstery",
+      "rrp": 0,
+      "unit": "meter",
+      "description": "Premium swatch (657-06) from official catalogue 'LUXURY-657'. Colour represented as Warm Grey, with 380 GSM construction, 140 CMS width and 50,000 Martindale rub resistance.",
+      "image": "/book/luxury-657/products/657-06.png",
+      "colors": [
+        {
+          "name": "Warm Grey",
+          "hex": "#8F897E"
+        }
+      ],
+      "specs": {},
+      "inStock": true
+    },
+    {
+      "code": "657-07",
+      "name": "LUXURY-657 07",
+      "shadeName": "SR.NO: 07 - Mushroom Beige",
+      "category": "100% Polyester Upholstery",
+      "rrp": 0,
+      "unit": "meter",
+      "description": "Premium swatch (657-07) from official catalogue 'LUXURY-657'. Colour represented as Mushroom Beige, with 380 GSM construction, 140 CMS width and 50,000 Martindale rub resistance.",
+      "image": "/book/luxury-657/products/657-07.png",
+      "colors": [
+        {
+          "name": "Mushroom Beige",
+          "hex": "#9D8C72"
+        }
+      ],
+      "specs": {},
+      "inStock": true
+    },
+    {
+      "code": "657-08",
+      "name": "LUXURY-657 08",
+      "shadeName": "SR.NO: 08 - Mocha Grey",
+      "category": "100% Polyester Upholstery",
+      "rrp": 0,
+      "unit": "meter",
+      "description": "Premium swatch (657-08) from official catalogue 'LUXURY-657'. Colour represented as Mocha Grey, with 380 GSM construction, 140 CMS width and 50,000 Martindale rub resistance.",
+      "image": "/book/luxury-657/products/657-08.png",
+      "colors": [
+        {
+          "name": "Mocha Grey",
+          "hex": "#7C7066"
+        }
+      ],
+      "specs": {},
+      "inStock": true
+    },
+    {
+      "code": "657-09",
+      "name": "LUXURY-657 09",
+      "shadeName": "SR.NO: 09 - Silver Sage",
+      "category": "100% Polyester Upholstery",
+      "rrp": 0,
+      "unit": "meter",
+      "description": "Premium swatch (657-09) from official catalogue 'LUXURY-657'. Colour represented as Silver Sage, with 380 GSM construction, 140 CMS width and 50,000 Martindale rub resistance.",
+      "image": "/book/luxury-657/products/657-09.png",
+      "colors": [
+        {
+          "name": "Silver Sage",
+          "hex": "#ABB0AA"
+        }
+      ],
+      "specs": {},
+      "inStock": true
+    },
+    {
+      "code": "657-10",
+      "name": "LUXURY-657 10",
+      "shadeName": "SR.NO: 10 - Ash Grey",
+      "category": "100% Polyester Upholstery",
+      "rrp": 0,
+      "unit": "meter",
+      "description": "Premium swatch (657-10) from official catalogue 'LUXURY-657'. Colour represented as Ash Grey, with 380 GSM construction, 140 CMS width and 50,000 Martindale rub resistance.",
+      "image": "/book/luxury-657/products/657-10.png",
+      "colors": [
+        {
+          "name": "Ash Grey",
+          "hex": "#81827D"
+        }
+      ],
+      "specs": {},
+      "inStock": true
+    },
+    {
+      "code": "657-11",
+      "name": "LUXURY-657 11",
+      "shadeName": "SR.NO: 11 - Medium Grey",
+      "category": "100% Polyester Upholstery",
+      "rrp": 0,
+      "unit": "meter",
+      "description": "Premium swatch (657-11) from official catalogue 'LUXURY-657'. Colour represented as Medium Grey, with 380 GSM construction, 140 CMS width and 50,000 Martindale rub resistance.",
+      "image": "/book/luxury-657/products/657-11.png",
+      "colors": [
+        {
+          "name": "Medium Grey",
+          "hex": "#676767"
+        }
+      ],
+      "specs": {},
+      "inStock": true
+    },
+    {
+      "code": "657-12",
+      "name": "LUXURY-657 12",
+      "shadeName": "SR.NO: 12 - Blue Grey",
+      "category": "100% Polyester Upholstery",
+      "rrp": 0,
+      "unit": "meter",
+      "description": "Premium swatch (657-12) from official catalogue 'LUXURY-657'. Colour represented as Blue Grey, with 380 GSM construction, 140 CMS width and 50,000 Martindale rub resistance.",
+      "image": "/book/luxury-657/products/657-12.png",
+      "colors": [
+        {
+          "name": "Blue Grey",
+          "hex": "#89959A"
+        }
+      ],
+      "specs": {},
+      "inStock": true
+    },
+    {
+      "code": "657-13",
+      "name": "LUXURY-657 13",
+      "shadeName": "SR.NO: 13 - Slate Blue",
+      "category": "100% Polyester Upholstery",
+      "rrp": 0,
+      "unit": "meter",
+      "description": "Premium swatch (657-13) from official catalogue 'LUXURY-657'. Colour represented as Slate Blue, with 380 GSM construction, 140 CMS width and 50,000 Martindale rub resistance.",
+      "image": "/book/luxury-657/products/657-13.png",
+      "colors": [
+        {
+          "name": "Slate Blue",
+          "hex": "#5D6671"
+        }
+      ],
+      "specs": {},
+      "inStock": true
+    },
+    {
+      "code": "657-14",
+      "name": "LUXURY-657 14",
+      "shadeName": "SR.NO: 14 - Golden Mustard",
+      "category": "100% Polyester Upholstery",
+      "rrp": 0,
+      "unit": "meter",
+      "description": "Premium swatch (657-14) from official catalogue 'LUXURY-657'. Colour represented as Golden Mustard, with 380 GSM construction, 140 CMS width and 50,000 Martindale rub resistance.",
+      "image": "/book/luxury-657/products/657-14.png",
+      "colors": [
+        {
+          "name": "Golden Mustard",
+          "hex": "#C19C5B"
+        }
+      ],
+      "specs": {},
+      "inStock": true
+    },
+    {
+      "code": "657-15",
+      "name": "LUXURY-657 15",
+      "shadeName": "SR.NO: 15 - Olive Sage",
+      "category": "100% Polyester Upholstery",
+      "rrp": 0,
+      "unit": "meter",
+      "description": "Premium swatch (657-15) from official catalogue 'LUXURY-657'. Colour represented as Olive Sage, with 380 GSM construction, 140 CMS width and 50,000 Martindale rub resistance.",
+      "image": "/book/luxury-657/products/657-15.png",
+      "colors": [
+        {
+          "name": "Olive Sage",
+          "hex": "#A09A75"
+        }
+      ],
+      "specs": {},
+      "inStock": true
+    },
+    {
+      "code": "657-16",
+      "name": "LUXURY-657 16",
+      "shadeName": "SR.NO: 16 - Muted Olive",
+      "category": "100% Polyester Upholstery",
+      "rrp": 0,
+      "unit": "meter",
+      "description": "Premium swatch (657-16) from official catalogue 'LUXURY-657'. Colour represented as Muted Olive, with 380 GSM construction, 140 CMS width and 50,000 Martindale rub resistance.",
+      "image": "/book/luxury-657/products/657-16.png",
+      "colors": [
+        {
+          "name": "Muted Olive",
+          "hex": "#6C775C"
+        }
+      ],
+      "specs": {},
+      "inStock": true
+    },
+    {
+      "code": "657-17",
+      "name": "LUXURY-657 17",
+      "shadeName": "SR.NO: 17 - Dusty Rose",
+      "category": "100% Polyester Upholstery",
+      "rrp": 0,
+      "unit": "meter",
+      "description": "Premium swatch (657-17) from official catalogue 'LUXURY-657'. Colour represented as Dusty Rose, with 380 GSM construction, 140 CMS width and 50,000 Martindale rub resistance.",
+      "image": "/book/luxury-657/products/657-17.png",
+      "colors": [
+        {
+          "name": "Dusty Rose",
+          "hex": "#8F635A"
+        }
+      ],
+      "specs": {},
+      "inStock": true
+    },
+    {
+      "code": "657-18",
+      "name": "LUXURY-657 18",
+      "shadeName": "SR.NO: 18 - Terracotta",
+      "category": "100% Polyester Upholstery",
+      "rrp": 0,
+      "unit": "meter",
+      "description": "Premium swatch (657-18) from official catalogue 'LUXURY-657'. Colour represented as Terracotta, with 380 GSM construction, 140 CMS width and 50,000 Martindale rub resistance.",
+      "image": "/book/luxury-657/products/657-18.png",
+      "colors": [
+        {
+          "name": "Terracotta",
+          "hex": "#B47859"
+        }
+      ],
+      "specs": {},
+      "inStock": true
+    }
+  ],
+  "headerImage": "/book/luxury-657/products/657-01.png"
 }

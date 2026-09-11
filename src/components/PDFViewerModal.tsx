@@ -232,8 +232,8 @@ const PDFViewerModal: React.FC<PDFViewerModalProps> = ({
                         REXINE CENTRE
                       </div>
 
-                      <div className="my-auto space-y-3">
-                        <div className="mx-auto h-36 w-48 overflow-hidden rounded-2xl border-2 border-[#C67C4E] shadow-sm">
+                      <div className="my-auto space-y-4">
+                        <div className="mx-auto h-52 sm:h-64 w-40 sm:w-48 overflow-hidden rounded-2xl border-2 border-[#C67C4E] shadow-md">
                           <img
                             src={coverImage}
                             alt={`${code} catalogue cover`}

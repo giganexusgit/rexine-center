@@ -9,7 +9,7 @@ export interface Product {
   bookId?: string;
   bookTitle?: string;
   shadeName?: string;
-  // rrp: number; // Retail Price ONLY
+  rrp?: number; // Retail Price ONLY
   unit: string;
   description: string;
   image: string;

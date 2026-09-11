@@ -102,7 +102,7 @@ const mapBookProductToProduct = (bp: BookProduct, b: Book): Product => ({
   collectionName: b.title.split('-')[0].trim(),
   bookId: b.slug,
   bookTitle: b.title,
-  // rrp: bp.rrp,
+  rrp: bp.rrp,
   unit: bp.unit,
   description: bp.description,
   image: bp.image || bp.fallbackImage || rexineBurgundyWine,

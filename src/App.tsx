@@ -232,7 +232,14 @@ function MainAppContent() {
               {/* BOOK DETAIL */}
               <Route
                 path="/books/:slug"
-                element={<BookDetailPage />}
+                element={
+                  <BookDetailPage
+                    onOpenEnquiry={handleOpenEnquiryWithProduct}
+                    onSelectProduct={(product) =>
+                      setDetailProduct(product)
+                    }
+                  />
+                }
               />
 
               {/* BOOK PRODUCT DETAIL */}

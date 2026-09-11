@@ -19,8 +19,8 @@ import BookQRCodeModal  from '../components/BookQRCodeModal';
 import  PDFViewerModal  from '../components/PDFViewerModal';
 
 interface BookDetailPageProps {
-  onSelectProduct: (product: Product) => void;
-  onOpenEnquiry: (product?: Product | null) => void;
+  onSelectProduct?: (product: Product) => void;
+  onOpenEnquiry?: (product?: Product | null) => void;
 }
 
 export const BookDetailPage: React.FC<BookDetailPageProps> = ({
@@ -153,7 +153,7 @@ const rrpPrice =
             
             {/* Cover Image Column */}
             <div className="lg:col-span-4 relative group cursor-pointer" onClick={() => setShowQRModal(true)}>
-              <div className="relative aspect-[3/4] sm:aspect-[4/5] rounded-2xl overflow-hidden bg-gray-900 border border-gray-200 shadow-xl w-full">
+              <div className="relative aspect-[2/3] rounded-2xl overflow-hidden bg-gray-900 border border-gray-200 shadow-xl w-full">
                 <img
                   src={book.coverImage}
                   alt={book.title}
@@ -344,15 +344,19 @@ const rrpPrice =
                   >
                     <div>
                       {/* Swatch Image */}
-                      <div
-                        className="relative aspect-[4/3] w-full bg-gray-100 overflow-hidden cursor-pointer"
-                        onClick={() => navigate(`/books/${book.slug}/${product.code}`)}
-                      >
+                     <div
+  className="relative aspect-[4/3] w-full bg-gray-100 overflow-hidden cursor-pointer"
+  onClick={() => navigate(`/books/${book.slug}/${product.code}`)}
+>
                         <img
                           src={product.image}
                           alt={product.name}
                           onError={(e) => {
-                            if (product.fallbackImage) e.currentTarget.src = product.fallbackImage;
+                            if (product.fallbackImage) {
+                              e.currentTarget.src = product.fallbackImage;
+                            } else {
+                              e.currentTarget.style.opacity = '0';
+                            }
                           }}
                           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                         />
@@ -381,9 +385,18 @@ const rrpPrice =
 
                       {/* Content & Specifications */}
                       <div className="p-4 space-y-2">
-                        <span className="text-[11px] font-button uppercase text-gray-700 block font-semibold">
-                          {product.shadeName || product.name}
-                        </span>
+                        <div className="flex items-center gap-2">
+                          {product.colors?.[0]?.hex && (
+                            <span
+                              className="w-3.5 h-3.5 rounded-full border border-black/10 shadow-xs shrink-0"
+                              style={{ backgroundColor: product.colors[0].hex }}
+                              title={product.colors[0].hex}
+                            />
+                          )}
+                          <span className="text-[11px] font-button uppercase text-gray-800 block font-bold truncate">
+                            {product.shadeName || product.name}
+                          </span>
+                        </div>
 
                         <p className="text-[11px] text-gray-600 font-sans line-clamp-2">
                           {product.description}
@@ -429,6 +442,7 @@ const rrpPrice =
           isOpen={showQRModal}
           onClose={() => setShowQRModal(false)}
           book={book}
+          onOpenCatalogue={() => setShowPDFModal(true)}
         />
 
         {/* PDF Catalogue Viewer Modal */}
