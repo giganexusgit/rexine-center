@@ -4,7 +4,6 @@
 
 [![Platform Status](https://img.shields.io/badge/Status-Production--Ready-brightgreen?style=for-the-badge&logo=shield)](https://github.com/)
 [![Security & Compliance](https://img.shields.io/badge/Security-SOC2%20%7C%20ISO%2027001%20Compliant-blue?style=for-the-badge&logo=lock)](https://github.com/)
-[![Core Capabilities](https://img.shields.io/badge/Capabilities-Phygital%20QR%20%7C%203D%20Customizer%20%7C%20GenAI Engine-purple?style=for-the-badge&logo=cpu)](https://github.com/)
 [![Target Industry](https://img.shields.io/badge/Industry-Automotive%20%7C%20Furniture%20%7C%20Footwear%20%7C%20Marine-orange?style=for-the-badge&logo=briefcase)](https://github.com/)
 
 *Empowering OEMs, Architects, Manufacturers, and Enterprise Buyers with real-time synthetic leather discovery, interactive visual customization, and seamless physical-to-digital sample cataloging.*
