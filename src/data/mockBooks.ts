@@ -125,32 +125,51 @@ const COMING_SOON_MESSAGE =
   'Detailed information, specifications, colours and swatches for this collection will be available soon.';
 
 /**
- * Converts the lightweight coming-soon JSON files into the
- * complete Book structure used by the existing application.
+ * Converts or normalizes the JSON files into the complete Book structure.
+ * Supports both full books (like linen-656.json or any populated book)
+ * and lightweight coming-soon books.
  */
-const createComingSoonBook = (book: {
-  id?: string;
-  name?: string;
-  code?: string;
-  title?: string;
-  status?: string;
-  message?: string;
-}): Book => {
+const createComingSoonBook = (book: any): Book => {
   const name = book.name || book.title || 'Collection';
-  const id = book.id || `${name.toLowerCase().replace(/\s+/g, '-')}-${book.code}`;
+  const slug =
+    book.slug ||
+    book.id ||
+    `${name.toLowerCase().replace(/\s+/g, '-')}-${book.code}`;
+
+  // If the book already contains product definitions, preserve full active book data
+  if (book.products && Array.isArray(book.products) && book.products.length > 0) {
+    return {
+      slug,
+      title: book.title || `${name}-${book.code}`,
+      code: book.code || '',
+      category: book.category || 'Rexine & Upholstery',
+      year: book.year || '2026 Master Edition',
+      description: book.description || COMING_SOON_MESSAGE,
+      coverImage: book.coverImage || heroLeatherRolls,
+      fallbackCover: book.fallbackCover || heroLeatherRolls,
+      pdfPath: book.pdfPath || `/book/${slug}/catalogue.pdf`,
+      designCount: book.designCount || book.products.length,
+      salePrice: book.salePrice || 0,
+      specs: book.specs || {},
+      products: book.products,
+      status: book.status || 'available',
+      message: book.message,
+    };
+  }
 
   return {
-    slug: id,
+    slug,
     title: book.title || `${name}-${book.code}`,
     code: book.code || '',
-    category: 'Rexine & Upholstery',
+    category: book.category || 'Rexine & Upholstery',
     year: 'Coming Soon',
     description:
       book.message ||
+      book.description ||
       COMING_SOON_MESSAGE,
     coverImage: heroLeatherRolls,
     fallbackCover: heroLeatherRolls,
-    pdfPath: '',
+    pdfPath: book.pdfPath || `/book/${slug}/catalogue.pdf`,
     designCount: 0,
     salePrice: 0,
 

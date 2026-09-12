@@ -1,8 +1,390 @@
 {
-  "id": "linen-656",
-  "name": "LINEN",
-  "code": "656",
-  "status": "coming-soon",
-  "title": "LINEN-656",
-  "message": "Detailed information, specifications, colours and swatches for the LINEN-656 collection will be available soon."
+  "slug": "linen-656",
+  "title": "LINEN-656 - 100% Polyester Upholstery",
+  "code": "LINEN-656",
+  "category": "100% Polyester Upholstery",
+  "year": "2026 Master Edition",
+  "description": "Official Rexine Centre LINEN-656 sample book featuring 16 premium 100% Polyester upholstery swatches (380 GSM, 50,000+ Martindale Rubs, 140 CMS Width) for sofas, chairs, and interior upholstery projects.",
+  "coverImage": "/book/linen-656/cover.png",
+  "fallbackCover": "src/assets/images/rexine_burgundy_wine_1785227406807.jpg",
+  "pdfPath": "/book/linen-656/catalogue.pdf",
+  "designCount": 16,
+  "salePrice": 0,
+  "specs": {
+    "thickness": "1.2 mm",
+    "width": "140 CMS",
+    "backing": "100% Polyester",
+    "finish": "380 GSM",
+    "targetUse": "Sofas, Chairs & Interior Upholstery"
+  },
+  "products": [
+    {
+      "code": "656-01",
+      "name": "LINEN-656 01",
+      "shadeName": "SR.NO: 01 - Ivory Mist",
+      "category": "100% Polyester Upholstery",
+      "rrp": 1033,
+      "unit": "meter",
+      "description": "Premium swatch (656-01) from official catalogue 'LINEN-656'. Features Ivory Mist with 380 GSM construction, 140 CMS width and 50,000+ Martindale rub resistance for upholstery applications.",
+      "image": "/book/linen-656/products/656-01.png",
+      "colors": [
+        {
+          "name": "Ivory Mist",
+          "hex": "#E6E3DF"
+        }
+      ],
+      "specs": {
+        "width": "140 CMS",
+        "gsm": "380 GSM",
+        "backing": "100% Polyester",
+        "abrasion": "50,000+ Rubs"
+      },
+      "inStock": true
+    },
+    {
+      "code": "656-02",
+      "name": "LINEN-656 02",
+      "shadeName": "SR.NO: 02 - Pearl Beige",
+      "category": "100% Polyester Upholstery",
+      "rrp": 1033,
+      "unit": "meter",
+      "description": "Premium swatch (656-02) from official catalogue 'LINEN-656'. Features Pearl Beige with 380 GSM construction, 140 CMS width and 50,000+ Martindale rub resistance for upholstery applications.",
+      "image": "/book/linen-656/products/656-02.png",
+      "colors": [
+        {
+          "name": "Pearl Beige",
+          "hex": "#E6E3DC"
+        }
+      ],
+      "specs": {
+        "width": "140 CMS",
+        "gsm": "380 GSM",
+        "backing": "100% Polyester",
+        "abrasion": "50,000+ Rubs"
+      },
+      "inStock": true
+    },
+    {
+      "code": "656-03",
+      "name": "LINEN-656 03",
+      "shadeName": "SR.NO: 03 - Warm Stone",
+      "category": "100% Polyester Upholstery",
+      "rrp": 1033,
+      "unit": "meter",
+      "description": "Premium swatch (656-03) from official catalogue 'LINEN-656'. Features Warm Stone with 380 GSM construction, 140 CMS width and 50,000+ Martindale rub resistance for upholstery applications.",
+      "image": "/book/linen-656/products/656-03.png",
+      "colors": [
+        {
+          "name": "Warm Stone",
+          "hex": "#D9D1C8"
+        }
+      ],
+      "specs": {
+        "width": "140 CMS",
+        "gsm": "380 GSM",
+        "backing": "100% Polyester",
+        "abrasion": "50,000+ Rubs"
+      },
+      "inStock": true
+    },
+    {
+      "code": "656-04",
+      "name": "LINEN-656 04",
+      "shadeName": "SR.NO: 04 - Natural Greige",
+      "category": "100% Polyester Upholstery",
+      "rrp": 1033,
+      "unit": "meter",
+      "description": "Premium swatch (656-04) from official catalogue 'LINEN-656'. Features Natural Greige with 380 GSM construction, 140 CMS width and 50,000+ Martindale rub resistance for upholstery applications.",
+      "image": "/book/linen-656/products/656-04.png",
+      "colors": [
+        {
+          "name": "Natural Greige",
+          "hex": "#C1BBAE"
+        }
+      ],
+      "specs": {
+        "width": "140 CMS",
+        "gsm": "380 GSM",
+        "backing": "100% Polyester",
+        "abrasion": "50,000+ Rubs"
+      },
+      "inStock": true
+    },
+    {
+      "code": "656-05",
+      "name": "LINEN-656 05",
+      "shadeName": "SR.NO: 05 - Taupe Beige",
+      "category": "100% Polyester Upholstery",
+      "rrp": 1033,
+      "unit": "meter",
+      "description": "Premium swatch (656-05) from official catalogue 'LINEN-656'. Features Taupe Beige with 380 GSM construction, 140 CMS width and 50,000+ Martindale rub resistance for upholstery applications.",
+      "image": "/book/linen-656/products/656-05.png",
+      "colors": [
+        {
+          "name": "Taupe Beige",
+          "hex": "#AEA698"
+        }
+      ],
+      "specs": {
+        "width": "140 CMS",
+        "gsm": "380 GSM",
+        "backing": "100% Polyester",
+        "abrasion": "50,000+ Rubs"
+      },
+      "inStock": true
+    },
+    {
+      "code": "656-06",
+      "name": "LINEN-656 06",
+      "shadeName": "SR.NO: 06 - Soft Silver",
+      "category": "100% Polyester Upholstery",
+      "rrp": 1033,
+      "unit": "meter",
+      "description": "Premium swatch (656-06) from official catalogue 'LINEN-656'. Features Soft Silver with 380 GSM construction, 140 CMS width and 50,000+ Martindale rub resistance for upholstery applications.",
+      "image": "/book/linen-656/products/656-06.png",
+      "colors": [
+        {
+          "name": "Soft Silver",
+          "hex": "#C8C9C4"
+        }
+      ],
+      "specs": {
+        "width": "140 CMS",
+        "gsm": "380 GSM",
+        "backing": "100% Polyester",
+        "abrasion": "50,000+ Rubs"
+      },
+      "inStock": true
+    },
+    {
+      "code": "656-07",
+      "name": "LINEN-656 07",
+      "shadeName": "SR.NO: 07 - Cool Grey",
+      "category": "100% Polyester Upholstery",
+      "rrp": 1033,
+      "unit": "meter",
+      "description": "Premium swatch (656-07) from official catalogue 'LINEN-656'. Features Cool Grey with 380 GSM construction, 140 CMS width and 50,000+ Martindale rub resistance for upholstery applications.",
+      "image": "/book/linen-656/products/656-07.png",
+      "colors": [
+        {
+          "name": "Cool Grey",
+          "hex": "#AFAFAB"
+        }
+      ],
+      "specs": {
+        "width": "140 CMS",
+        "gsm": "380 GSM",
+        "backing": "100% Polyester",
+        "abrasion": "50,000+ Rubs"
+      },
+      "inStock": true
+    },
+    {
+      "code": "656-08",
+      "name": "LINEN-656 08",
+      "shadeName": "SR.NO: 08 - Charcoal Grey",
+      "category": "100% Polyester Upholstery",
+      "rrp": 1033,
+      "unit": "meter",
+      "description": "Premium swatch (656-08) from official catalogue 'LINEN-656'. Features Charcoal Grey with 380 GSM construction, 140 CMS width and 50,000+ Martindale rub resistance for upholstery applications.",
+      "image": "/book/linen-656/products/656-08.png",
+      "colors": [
+        {
+          "name": "Charcoal Grey",
+          "hex": "#5D5D5C"
+        }
+      ],
+      "specs": {
+        "width": "140 CMS",
+        "gsm": "380 GSM",
+        "backing": "100% Polyester",
+        "abrasion": "50,000+ Rubs"
+      },
+      "inStock": true
+    },
+    {
+      "code": "656-09",
+      "name": "LINEN-656 09",
+      "shadeName": "SR.NO: 09 - Dusty Terracotta",
+      "category": "100% Polyester Upholstery",
+      "rrp": 1033,
+      "unit": "meter",
+      "description": "Premium swatch (656-09) from official catalogue 'LINEN-656'. Features Dusty Terracotta with 380 GSM construction, 140 CMS width and 50,000+ Martindale rub resistance for upholstery applications.",
+      "image": "/book/linen-656/products/656-09.png",
+      "colors": [
+        {
+          "name": "Dusty Terracotta",
+          "hex": "#966258"
+        }
+      ],
+      "specs": {
+        "width": "140 CMS",
+        "gsm": "380 GSM",
+        "backing": "100% Polyester",
+        "abrasion": "50,000+ Rubs"
+      },
+      "inStock": true
+    },
+    {
+      "code": "656-10",
+      "name": "LINEN-656 10",
+      "shadeName": "SR.NO: 10 - Cocoa Brown",
+      "category": "100% Polyester Upholstery",
+      "rrp": 1033,
+      "unit": "meter",
+      "description": "Premium swatch (656-10) from official catalogue 'LINEN-656'. Features Cocoa Brown with 380 GSM construction, 140 CMS width and 50,000+ Martindale rub resistance for upholstery applications.",
+      "image": "/book/linen-656/products/656-10.png",
+      "colors": [
+        {
+          "name": "Cocoa Brown",
+          "hex": "#79533F"
+        }
+      ],
+      "specs": {
+        "width": "140 CMS",
+        "gsm": "380 GSM",
+        "backing": "100% Polyester",
+        "abrasion": "50,000+ Rubs"
+      },
+      "inStock": true
+    },
+    {
+      "code": "656-11",
+      "name": "LINEN-656 11",
+      "shadeName": "SR.NO: 11 - Golden Sand",
+      "category": "100% Polyester Upholstery",
+      "rrp": 1033,
+      "unit": "meter",
+      "description": "Premium swatch (656-11) from official catalogue 'LINEN-656'. Features Golden Sand with 380 GSM construction, 140 CMS width and 50,000+ Martindale rub resistance for upholstery applications.",
+      "image": "/book/linen-656/products/656-11.png",
+      "colors": [
+        {
+          "name": "Golden Sand",
+          "hex": "#CFB590"
+        }
+      ],
+      "specs": {
+        "width": "140 CMS",
+        "gsm": "380 GSM",
+        "backing": "100% Polyester",
+        "abrasion": "50,000+ Rubs"
+      },
+      "inStock": true
+    },
+    {
+      "code": "656-12",
+      "name": "LINEN-656 12",
+      "shadeName": "SR.NO: 12 - Powder Blue",
+      "category": "100% Polyester Upholstery",
+      "rrp": 1033,
+      "unit": "meter",
+      "description": "Premium swatch (656-12) from official catalogue 'LINEN-656'. Features Powder Blue with 380 GSM construction, 140 CMS width and 50,000+ Martindale rub resistance for upholstery applications.",
+      "image": "/book/linen-656/products/656-12.png",
+      "colors": [
+        {
+          "name": "Powder Blue",
+          "hex": "#B5C3C8"
+        }
+      ],
+      "specs": {
+        "width": "140 CMS",
+        "gsm": "380 GSM",
+        "backing": "100% Polyester",
+        "abrasion": "50,000+ Rubs"
+      },
+      "inStock": true
+    },
+    {
+      "code": "656-13",
+      "name": "LINEN-656 13",
+      "shadeName": "SR.NO: 13 - Sage Teal",
+      "category": "100% Polyester Upholstery",
+      "rrp": 1033,
+      "unit": "meter",
+      "description": "Premium swatch (656-13) from official catalogue 'LINEN-656'. Features Sage Teal with 380 GSM construction, 140 CMS width and 50,000+ Martindale rub resistance for upholstery applications.",
+      "image": "/book/linen-656/products/656-13.png",
+      "colors": [
+        {
+          "name": "Sage Teal",
+          "hex": "#8DA299"
+        }
+      ],
+      "specs": {
+        "width": "140 CMS",
+        "gsm": "380 GSM",
+        "backing": "100% Polyester",
+        "abrasion": "50,000+ Rubs"
+      },
+      "inStock": true
+    },
+    {
+      "code": "656-14",
+      "name": "LINEN-656 14",
+      "shadeName": "SR.NO: 14 - Soft Moss",
+      "category": "100% Polyester Upholstery",
+      "rrp": 1033,
+      "unit": "meter",
+      "description": "Premium swatch (656-14) from official catalogue 'LINEN-656'. Features Soft Moss with 380 GSM construction, 140 CMS width and 50,000+ Martindale rub resistance for upholstery applications.",
+      "image": "/book/linen-656/products/656-14.png",
+      "colors": [
+        {
+          "name": "Soft Moss",
+          "hex": "#B0B695"
+        }
+      ],
+      "specs": {
+        "width": "140 CMS",
+        "gsm": "380 GSM",
+        "backing": "100% Polyester",
+        "abrasion": "50,000+ Rubs"
+      },
+      "inStock": true
+    },
+    {
+      "code": "656-15",
+      "name": "LINEN-656 15",
+      "shadeName": "SR.NO: 15 - Olive Green",
+      "category": "100% Polyester Upholstery",
+      "rrp": 1033,
+      "unit": "meter",
+      "description": "Premium swatch (656-15) from official catalogue 'LINEN-656'. Features Olive Green with 380 GSM construction, 140 CMS width and 50,000+ Martindale rub resistance for upholstery applications.",
+      "image": "/book/linen-656/products/656-15.png",
+      "colors": [
+        {
+          "name": "Olive Green",
+          "hex": "#768261"
+        }
+      ],
+      "specs": {
+        "width": "140 CMS",
+        "gsm": "380 GSM",
+        "backing": "100% Polyester",
+        "abrasion": "50,000+ Rubs"
+      },
+      "inStock": true
+    },
+    {
+      "code": "656-16",
+      "name": "LINEN-656 16",
+      "shadeName": "SR.NO: 16 - Deep Eucalyptus",
+      "category": "100% Polyester Upholstery",
+      "rrp": 1033,
+      "unit": "meter",
+      "description": "Premium swatch (656-16) from official catalogue 'LINEN-656'. Features Deep Eucalyptus with 380 GSM construction, 140 CMS width and 50,000+ Martindale rub resistance for upholstery applications.",
+      "image": "/book/linen-656/products/656-16.png",
+      "colors": [
+        {
+          "name": "Deep Eucalyptus",
+          "hex": "#495F58"
+        }
+      ],
+      "specs": {
+        "width": "140 CMS",
+        "gsm": "380 GSM",
+        "backing": "100% Polyester",
+        "abrasion": "50,000+ Rubs"
+      },
+      "inStock": true
+    }
+  ]
 }

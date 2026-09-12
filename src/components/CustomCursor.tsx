@@ -58,7 +58,7 @@ export const CustomCursor: React.FC = () => {
     <>
       {/* Small Precision Dot */}
       <div
-        className="fixed top-0 left-0 w-2 h-2 bg-[#C67C4E] rounded-full pointer-events-none z-[9999] transition-transform duration-75 ease-out -translate-x-1/2 -translate-y-1/2"
+        className="fixed top-0 left-0 w-2 h-2 bg-[#C67C4E] rounded-full pointer-events-none z-[99999] transition-transform duration-75 ease-out -translate-x-1/2 -translate-y-1/2"
         style={{
           transform: `translate3d(${position.x}px, ${position.y}px, 0) scale(${isHovered ? 0 : 1})`,
         }}
@@ -66,12 +66,12 @@ export const CustomCursor: React.FC = () => {
 
       {/* Large Magnetic Circle */}
       <div
-        className={`fixed top-0 left-0 rounded-full pointer-events-none z-[9998] transition-all duration-300 ease-out -translate-x-1/2 -translate-y-1/2 flex items-center justify-center font-button font-semibold text-[10px] tracking-wider uppercase ${
+        className={`fixed top-0 left-0 rounded-full pointer-events-none z-[99998] transition-all duration-300 ease-out -translate-x-1/2 -translate-y-1/2 flex items-center justify-center font-button font-semibold text-[10px] tracking-wider uppercase ${
           cursorText
             ? 'w-20 h-20 bg-[#C67C4E] text-white backdrop-blur-sm shadow-xl scale-100'
             : isPointer
             ? 'w-12 h-12 border-2 border-[#C67C4E] bg-[#C67C4E]/10 scale-100'
-            : 'w-8 h-8 border border-[#111111]/30 scale-100'
+            : 'w-8 h-8 border border-white/40 ring-1 ring-black/10 scale-100'
         }`}
         style={{
           transform: `translate3d(${position.x}px, ${position.y}px, 0)`,

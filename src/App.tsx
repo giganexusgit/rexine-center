@@ -234,51 +234,7 @@ function MainAppContent() {
                 path="/books/:slug"
                 element={
                   <BookDetailPage
-                    onOpenEnquiry={
-                      handleOpenEnquiryWithProduct
-                    }
-                    onSelectProduct={(product) =>
-                      setDetailProduct(product)
-                    }
-                  />
-                }
-              />
-
-              <Route
-                path="/books/:slug/catalogue.pdf"
-                element={
-                  <BookDetailPage
-                    onOpenEnquiry={
-                      handleOpenEnquiryWithProduct
-                    }
-                    onSelectProduct={(product) =>
-                      setDetailProduct(product)
-                    }
-                  />
-                }
-              />
-
-              <Route
-                path="/book/:slug"
-                element={
-                  <BookDetailPage
-                    onOpenEnquiry={
-                      handleOpenEnquiryWithProduct
-                    }
-                    onSelectProduct={(product) =>
-                      setDetailProduct(product)
-                    }
-                  />
-                }
-              />
-
-              <Route
-                path="/book/:slug/catalogue.pdf"
-                element={
-                  <BookDetailPage
-                    onOpenEnquiry={
-                      handleOpenEnquiryWithProduct
-                    }
+                    onOpenEnquiry={handleOpenEnquiryWithProduct}
                     onSelectProduct={(product) =>
                       setDetailProduct(product)
                     }
