@@ -59,20 +59,20 @@ export default function BookQRCodeModal({
   const bookCategory =
     book?.category || category || "REXINE & UPHOLSTERY";
 
-  const origin =
-    typeof window !== 'undefined' && window.location.origin
-      ? window.location.origin
-      : 'https://rexinecentre.com';
+  // Resolve Slug and Catalogue PDF URL
+  const bookSlug =
+    book?.slug ||
+    displayTitle.toLowerCase().replace(/\s+/g, "-") ||
+    `book-${bookCode.toLowerCase()}`;
 
-  const rawPath =
+  const resolvedPdfPath =
     pdfUrl ||
     book?.pdfPath ||
-    `/book/${(book?.slug || bookCode).toLowerCase()}/catalogue.pdf`;
+    `/book/${bookSlug}/catalogue.pdf`;
 
-  const catalogueUrl =
-    rawPath.startsWith('http://') || rawPath.startsWith('https://')
-      ? rawPath
-      : `${origin}/${rawPath.replace(/^\//, '')}`;
+  const catalogueUrl = resolvedPdfPath.startsWith("http")
+    ? resolvedPdfPath
+    : siteUrl(resolvedPdfPath);
 
   // Scannable QR Code pointing directly to the PDF catalogue URL
   const qrImageUrl = `https://api.qrserver.com/v1/create-qr-code/?size=500x500&margin=12&data=${encodeURIComponent(
@@ -116,7 +116,7 @@ export default function BookQRCodeModal({
   return (
     <>
       <div
-        className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/75 backdrop-blur-sm p-4 overflow-y-auto"
+        className="fixed inset-0 z-[9000] flex items-center justify-center bg-black/75 backdrop-blur-sm p-4 overflow-y-auto"
         onClick={handleClose}
       >
         <div
