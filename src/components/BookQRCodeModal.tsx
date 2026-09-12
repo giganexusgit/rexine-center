@@ -59,20 +59,20 @@ export default function BookQRCodeModal({
   const bookCategory =
     book?.category || category || "REXINE & UPHOLSTERY";
 
-  // Resolve Slug and Catalogue PDF URL
-  const bookSlug =
-    book?.slug ||
-    displayTitle.toLowerCase().replace(/\s+/g, "-") ||
-    `book-${bookCode.toLowerCase()}`;
+  const origin =
+    typeof window !== 'undefined' && window.location.origin
+      ? window.location.origin
+      : 'https://rexinecentre.com';
 
-  const resolvedPdfPath =
+  const rawPath =
     pdfUrl ||
     book?.pdfPath ||
-    `/book/${bookSlug}/catalogue.pdf`;
+    `/book/${(book?.slug || bookCode).toLowerCase()}/catalogue.pdf`;
 
-  const catalogueUrl = resolvedPdfPath.startsWith("http")
-    ? resolvedPdfPath
-    : siteUrl(resolvedPdfPath);
+  const catalogueUrl =
+    rawPath.startsWith('http://') || rawPath.startsWith('https://')
+      ? rawPath
+      : `${origin}/${rawPath.replace(/^\//, '')}`;
 
   // Scannable QR Code pointing directly to the PDF catalogue URL
   const qrImageUrl = `https://api.qrserver.com/v1/create-qr-code/?size=500x500&margin=12&data=${encodeURIComponent(

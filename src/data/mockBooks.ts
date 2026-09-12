@@ -290,15 +290,36 @@ export const SAMPLE_BOOKS_DATA = MOCK_BOOKS.map((book) => ({
 export const getBookBySlug = (
   slugOrId: string
 ): Book | undefined => {
-  const query = slugOrId.toLowerCase().trim();
+  if (!slugOrId) return undefined;
 
-  return MOCK_BOOKS.find(
-    (book) =>
-      book.slug.toLowerCase() === query ||
-      book.code.toLowerCase() === query ||
-      book.slug.replace(/-/g, '').toLowerCase() ===
-        query.replace(/-/g, '')
-  );
+  const rawQuery = decodeURIComponent(slugOrId).toLowerCase().trim();
+
+  // Strip possible trailing /catalogue.pdf, .pdf, leading/trailing slashes
+  const clean = rawQuery
+    .replace(/\/catalogue\.pdf$/i, '')
+    .replace(/\.pdf$/i, '')
+    .replace(/^\/+/, '')
+    .replace(/\/+$/, '')
+    .trim();
+
+  const cleanNoDash = clean.replace(/[-_\s]+/g, '');
+
+  return MOCK_BOOKS.find((book) => {
+    const bSlug = book.slug.toLowerCase();
+    const bCode = book.code.toLowerCase();
+    const bTitle = book.title.toLowerCase();
+    const bSlugNoDash = bSlug.replace(/[-_\s]+/g, '');
+    const bTitleNoDash = bTitle.replace(/[-_\s]+/g, '');
+
+    return (
+      bSlug === clean ||
+      bCode === clean ||
+      bTitle === clean ||
+      bSlugNoDash === cleanNoDash ||
+      bTitleNoDash === cleanNoDash ||
+      (clean.length >= 3 && (bSlug.includes(clean) || bCode.includes(clean) || bTitle.includes(clean)))
+    );
+  });
 };
 
 // ============================================================
