@@ -128,16 +128,53 @@ export const Footer: React.FC = () => {
               SUPPLY INDIA
             </h4>
             <ul className="space-y-1.5 text-gray-400 text-[11px]">
-              <li><Link to="/supply-locations?state=maharashtra" className="hover:text-white transition-colors">Maharashtra</Link></li>
-              <li><Link to="/supply-locations?state=gujarat" className="hover:text-white transition-colors">Gujarat</Link></li>
-              <li><Link to="/supply-locations?state=delhi" className="hover:text-white transition-colors">Delhi NCR</Link></li>
-              <li><Link to="/supply-locations?state=karnataka" className="hover:text-white transition-colors">Karnataka</Link></li>
-              <li><Link to="/supply-locations?state=tamil-nadu" className="hover:text-white transition-colors">Tamil Nadu</Link></li>
-              <li><Link to="/supply-locations?state=punjab" className="hover:text-white transition-colors">Punjab</Link></li>
-              <li><Link to="/supply-locations?state=rajasthan" className="hover:text-white transition-colors">Rajasthan</Link></li>
-              <li><Link to="/supply-locations?state=uttar-pradesh" className="hover:text-white transition-colors">Uttar Pradesh</Link></li>
-              <li><Link to="/supply-locations" className="hover:text-[#C67C4E] font-bold transition-colors">View All States</Link></li>
-            </ul>
+             <li>
+  <Link to="/rexine-supplier/maharashtra" className="hover:text-white transition-colors">
+    Maharashtra
+  </Link>
+</li>
+
+<li>
+  <Link to="/rexine-supplier/gujarat" className="hover:text-white transition-colors">
+    Gujarat
+  </Link>
+</li>
+
+<li>
+  <Link to="/rexine-supplier/delhi" className="hover:text-white transition-colors">
+    Delhi NCR
+  </Link>
+</li>
+
+<li>
+  <Link to="/rexine-supplier/karnataka" className="hover:text-white transition-colors">
+    Karnataka
+  </Link>
+</li>
+
+<li>
+  <Link to="/rexine-supplier/tamil-nadu" className="hover:text-white transition-colors">
+    Tamil Nadu
+  </Link>
+</li>
+
+<li>
+  <Link to="/rexine-supplier/punjab" className="hover:text-white transition-colors">
+    Punjab
+  </Link>
+</li>
+
+<li>
+  <Link to="/rexine-supplier/rajasthan" className="hover:text-white transition-colors">
+    Rajasthan
+  </Link>
+</li>
+
+<li>
+  <Link to="/rexine-supplier/uttar-pradesh" className="hover:text-white transition-colors">
+    Uttar Pradesh
+  </Link>
+</li>            </ul>
           </div>
 
         </div>
@@ -154,23 +191,47 @@ export const Footer: React.FC = () => {
           </div>
 
           <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px] text-gray-400">
-            {[
-              'Mumbai', 'Pune', 'Surat', 'Ahmedabad', 'Delhi', 'Gurgaon', 'Noida',
-              'Bangalore', 'Chennai', 'Coimbatore', 'Hyderabad', 'Jaipur', 'Jodhpur',
-              'Ludhiana', 'Jalandhar', 'Lucknow', 'Kanpur', 'Kolkata', 'Nagpur', 'Nashik',
-              'Vadodara', 'Rajkot', 'Bhiwandi', 'Indore', 'Bhopal', 'Patna'
-            ].map((cityName, idx, arr) => (
-              <React.Fragment key={idx}>
-                <Link
-                  to={`/supply-locations?state=${cityName.toLowerCase()}`}
-                  className="hover:text-white hover:underline transition-colors"
-                >
-                  {cityName} Rexine
-                </Link>
-                {idx < arr.length - 1 && <span className="text-gray-700">•</span>}
-              </React.Fragment>
-            ))}
-          </div>
+           {[
+  { name: 'Mumbai', state: 'maharashtra' },
+  { name: 'Pune', state: 'maharashtra' },
+  { name: 'Surat', state: 'gujarat' },
+  { name: 'Ahmedabad', state: 'gujarat' },
+  { name: 'Delhi', state: 'delhi' },
+  { name: 'Gurgaon', state: 'delhi' },
+  { name: 'Noida', state: 'delhi' },
+  { name: 'Bangalore', state: 'karnataka' },
+  { name: 'Chennai', state: 'tamil-nadu' },
+  { name: 'Coimbatore', state: 'tamil-nadu' },
+  { name: 'Hyderabad', state: 'telangana' },
+  { name: 'Jaipur', state: 'rajasthan' },
+  { name: 'Jodhpur', state: 'rajasthan' },
+  { name: 'Ludhiana', state: 'punjab' },
+  { name: 'Jalandhar', state: 'punjab' },
+  { name: 'Lucknow', state: 'uttar-pradesh' },
+  { name: 'Kanpur', state: 'uttar-pradesh' },
+  { name: 'Kolkata', state: 'west-bengal' },
+  { name: 'Nagpur', state: 'maharashtra' },
+  { name: 'Nashik', state: 'maharashtra' },
+  { name: 'Vadodara', state: 'gujarat' },
+  { name: 'Rajkot', state: 'gujarat' },
+  { name: 'Bhiwandi', state: 'maharashtra' },
+  { name: 'Indore', state: 'madhya-pradesh' },
+  { name: 'Bhopal', state: 'madhya-pradesh' },
+  { name: 'Patna', state: 'bihar' }
+].map((city, idx, arr) => (
+  <React.Fragment key={idx}>
+    <Link
+      to={`/rexine-supplier/${city.state}/${city.name.toLowerCase().replace(/\s+/g, '-')}`}
+      className="hover:text-white hover:underline transition-colors"
+    >
+      {city.name} Rexine
+    </Link>
+
+    {idx < arr.length - 1 && (
+      <span className="text-gray-700">•</span>
+    )}
+  </React.Fragment>
+))}          </div>
         </div>
 
         {/* Bottom Bar */}

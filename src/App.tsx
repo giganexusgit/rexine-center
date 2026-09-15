@@ -340,17 +340,29 @@ function MainAppContent() {
                 }
               />
 
-              {/* SUPPLY LOCATIONS */}
-              <Route
-                path="/supply-locations"
-                element={
-                  <CitiesSupplyPage
-                    onOpenEnquiry={
-                      handleOpenEnquiryWithProduct
-                    }
-                  />
-                }
-              />
+              {/* SUPPLY LOCATIONS - STATE */}
+<Route
+  path="/rexine-supplier/:stateSlug"
+  element={
+    <CitiesSupplyPage
+      onOpenEnquiry={
+        handleOpenEnquiryWithProduct
+      }
+    />
+  }
+/>
+
+{/* SUPPLY LOCATIONS - CITY */}
+<Route
+  path="/rexine-supplier/:stateSlug/:citySlug"
+  element={
+    <CitiesSupplyPage
+      onOpenEnquiry={
+        handleOpenEnquiryWithProduct
+      }
+    />
+  }
+/>
 
               {/* SITEMAP */}
               <Route

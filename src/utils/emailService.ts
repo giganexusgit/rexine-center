@@ -15,7 +15,7 @@ export interface EnquiryPayload {
 }
 
 export const RECIPIENT_EMAIL = 'amaannansib005@gmail.com';
-export const WHATSAPP_NUMBER = '918104019890';
+export const WHATSAPP_NUMBER = '+91 8104019890';
 export const WHATSAPP_DISPLAY = '+91 81040 19890';
 
 /**
