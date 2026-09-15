@@ -78,7 +78,7 @@ export const IndiaSupplySection: React.FC = () => {
             {STATE_MONUMENTS.map((state, idx) => (
               <Link
                 key={idx}
-                to={`/supply-locations?state=${state.slug}`}
+               to={`/rexine-supplier/${state.slug}`}
                 className="bg-[#EDE8E3]/60 p-4 rounded-xl border border-black/8 hover:border-[#C67C4E] text-center transition-all cursor-pointer group shadow-sm hover:shadow-md flex flex-col items-center justify-center min-h-[120px]"
               >
                 <div className="mb-2 group-hover:scale-110 transition-transform">
@@ -91,7 +91,7 @@ export const IndiaSupplySection: React.FC = () => {
             ))}
 
             <Link
-              to="/supply-locations"
+              to="/rexine-supplier"
               className="bg-[#111111] text-white p-4 rounded-xl border border-black/8 text-center flex flex-col items-center justify-center cursor-pointer hover:bg-[#C67C4E] transition-colors min-h-[120px]"
             >
               <span className="font-button text-xs font-bold uppercase tracking-wider flex items-center gap-1">
