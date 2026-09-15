@@ -229,7 +229,7 @@ function MainAppContent() {
                 }
               />
 
-              {/* BOOK DETAIL */}
+              {/* BOOK DETAIL & PHYSICAL BOOK QR CODE DEEP LINKS */}
               <Route
                 path="/books/:slug"
                 element={
@@ -243,6 +243,20 @@ function MainAppContent() {
               />
 
               {/* BOOK PRODUCT DETAIL */}
+              <Route
+                path="/book/:slug/:productCode"
+                element={
+                  <BookProductDetailPage
+                    onOpenEnquiry={
+                      handleOpenEnquiryWithProduct
+                    }
+                    onSelectProduct={(product) =>
+                      setDetailProduct(product)
+                    }
+                  />
+                }
+              />
+
               <Route
                 path="/books/:slug/:productCode"
                 element={

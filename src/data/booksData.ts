@@ -85,6 +85,8 @@ const mapBookToSampleBook = (b: Book): SampleBook => ({
     : (b.fallbackCover || rexineBurgundyWine),
   // QR code points directly to the PDF catalogue, not the book page
   qrCodeUrl: siteUrl(b.pdfPath),
+  status: b.status,
+  message: b.message,
   specs: b.specs,
 });
 

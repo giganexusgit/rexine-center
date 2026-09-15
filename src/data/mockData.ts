@@ -673,7 +673,7 @@ export const POPULAR_CITIES = [
 export const FAQS: FAQItem[] = [
   {
     id: 'faq1',
-    question: 'What is rexine made of?',
+    question: 'What is Rexine made of?',
     answer: 'Rexine is a high-grade synthetic leather produced by coating a fabric backing (woven cotton or polyester mesh) with plasticized PVC or Polyurethane (PU), embossed with rich natural leather grain patterns.'
   },
   {

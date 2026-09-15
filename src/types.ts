@@ -71,6 +71,8 @@ export interface SampleBook {
   totalSwatches: number;
   coverImage: string;
   qrCodeUrl: string;
+  status?: 'available' | 'coming-soon';
+  message?: string;
   specs?: {
     thickness?: string;
     width?: string;

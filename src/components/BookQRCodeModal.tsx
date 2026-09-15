@@ -116,7 +116,7 @@ export default function BookQRCodeModal({
   return (
     <>
       <div
-        className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/75 backdrop-blur-sm p-4 overflow-y-auto"
+        className="fixed inset-0 z-[9000] flex items-center justify-center bg-black/75 backdrop-blur-sm p-4 overflow-y-auto"
         onClick={handleClose}
       >
         <div
