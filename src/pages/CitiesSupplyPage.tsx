@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 import { MapPin, Search, ArrowRight, Building2, Truck, ShieldCheck, CheckCircle2, MessageCircle, ChevronDown, ChevronUp, Layers, HelpCircle, PhoneCall } from 'lucide-react';
 import { STATE_SUPPLY_DATA, ALL_SERVED_CITIES_SEO, StateDetail, CityDetail } from '../data/citySupplyData';
 import { Product } from '../types';
@@ -9,28 +9,89 @@ interface CitiesSupplyPageProps {
 }
 
 export const CitiesSupplyPage: React.FC<CitiesSupplyPageProps> = ({ onOpenEnquiry }) => {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const initialSlug = searchParams.get('state') || searchParams.get('slug') || 'maharashtra';
-  
+  const { stateSlug, citySlug } = useParams<{
+    stateSlug?: string;
+    citySlug?: string;
+  }>();
+
+  const navigate = useNavigate();
+
+  const initialSlug = stateSlug || 'maharashtra';
+
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedStateSlug, setSelectedStateSlug] = useState<string>(initialSlug);
   const [selectedCityDetail, setSelectedCityDetail] = useState<CityDetail | null>(null);
   const [openFaqIdx, setOpenFaqIdx] = useState<number | null>(0);
-
   // Sync state when URL params change
+  // Sync selected city/state when URL params change
   useEffect(() => {
-    const stateParam = searchParams.get('state') || searchParams.get('slug');
-    if (stateParam) {
-      const match = STATE_SUPPLY_DATA.find(s => s.stateSlug.toLowerCase() === stateParam.toLowerCase());
-      if (match) {
-        setSelectedStateSlug(match.stateSlug);
-      }
+    window.scrollTo(0, 0);
+    const currentStateSlug = stateSlug || 'maharashtra';
+
+    const stateMatch = STATE_SUPPLY_DATA.find(
+      state =>
+        state.stateSlug.toLowerCase() === currentStateSlug.toLowerCase()
+    );
+
+    if (!stateMatch) {
+      setSelectedStateSlug('maharashtra');
+      setSelectedCityDetail(null);
+      return;
     }
-  }, [searchParams]);
 
+    setSelectedStateSlug(stateMatch.stateSlug);
+
+    // CITY URL: /maharashtra/nashik
+    if (citySlug) {
+      const cityMatch = stateMatch.citiesDetails.find(
+        city =>
+          city.citySlug?.toLowerCase() === citySlug.toLowerCase() ||
+          city.cityName?.toLowerCase() === citySlug.toLowerCase()
+      );
+
+      if (cityMatch) {
+        setSelectedCityDetail(cityMatch);
+        setOpenFaqIdx(0);
+        return;
+      }
+
+      // If city is not found in citiesDetails,
+      // create the city detail from the state data.
+      const cityName = citySlug
+        .split('-')
+        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(' ');
+
+      setSelectedCityDetail({
+        cityName,
+        citySlug,
+        stateName: stateMatch.stateName,
+        stateSlug: stateMatch.stateSlug,
+        marketLocations: stateMatch.wholesaleHubs.slice(0, 3),
+        keyIndustries: stateMatch.demandSectors.slice(0, 3),
+        recommendedRexine: stateMatch.topProductsInDemand.slice(0, 3),
+        deliveryTimeline: stateMatch.avgDeliveryTime,
+        seoDescription: `Rexine Centre provides direct wholesale supply of premium synthetic leather, sofa rexine, and PVC sheeting to dealers and manufacturers in ${cityName}, ${stateMatch.stateName}.`
+      });
+
+      setOpenFaqIdx(0);
+      return;
+    }
+
+    // STATE URL: /maharashtra
+    setSelectedCityDetail(null);
+    setOpenFaqIdx(0);
+
+  }, [stateSlug, citySlug]);
   // Find active state
-  const activeState = STATE_SUPPLY_DATA.find(s => s.stateSlug === selectedStateSlug) || STATE_SUPPLY_DATA[0];
+  // Find active state
+  const activeState =
+    STATE_SUPPLY_DATA.find(s => s.stateSlug === selectedStateSlug) ||
+    STATE_SUPPLY_DATA[0];
 
+  // Current location name for hero
+  const selectedLocationName =
+    selectedCityDetail?.cityName || activeState.stateName;
   // Filtered states/cities based on search
   const filteredStates = STATE_SUPPLY_DATA.filter(state => {
     if (!searchQuery.trim()) return true;
@@ -45,39 +106,92 @@ export const CitiesSupplyPage: React.FC<CitiesSupplyPageProps> = ({ onOpenEnquir
 
   const handleSelectState = (slug: string) => {
     setSelectedStateSlug(slug);
-    setSearchParams({ state: slug });
     setSelectedCityDetail(null);
     setOpenFaqIdx(0);
-  };
 
+    navigate(`/rexine-supplier/${slug}`);
+  };
   const handleCityClick = (cityName: string) => {
-    const matchedCity = activeState.citiesDetails.find(c => c.cityName.toLowerCase() === cityName.toLowerCase());
-    if (matchedCity) {
-      setSelectedCityDetail(matchedCity);
-    } else {
-      // create a fallback detail for any city
-      setSelectedCityDetail({
-        cityName: cityName,
-        citySlug: cityName.toLowerCase().replace(/\s+/g, '-'),
-        stateName: activeState.stateName,
-        stateSlug: activeState.stateSlug,
-        marketLocations: activeState.wholesaleHubs.slice(0, 3),
-        keyIndustries: activeState.demandSectors.slice(0, 3),
-        recommendedRexine: activeState.topProductsInDemand.slice(0, 3),
-        deliveryTimeline: activeState.avgDeliveryTime,
-        seoDescription: `Rexine Centre provides direct wholesale supply of premium synthetic leather, sofa rexine, and PVC sheeting to dealers and manufacturers in ${cityName}, ${activeState.stateName}.`
-      });
+    let matchedState: StateDetail | null = null;
+    let matchedCity: CityDetail | null = null;
+
+    // Search the city across ALL states
+    for (const state of STATE_SUPPLY_DATA) {
+      const city = state.citiesDetails.find(
+        c =>
+          c.cityName.toLowerCase() === cityName.toLowerCase() ||
+          c.citySlug?.toLowerCase() === cityName.toLowerCase()
+      );
+
+      if (city) {
+        matchedState = state;
+        matchedCity = city;
+        break;
+      }
     }
-  };
 
+    // City found in the correct state
+    if (matchedState && matchedCity) {
+      setSelectedStateSlug(matchedState.stateSlug);
+      setSelectedCityDetail(matchedCity);
+      setOpenFaqIdx(0);
+
+      navigate(
+        `/rexine-supplier/${matchedState.stateSlug}/${matchedCity.citySlug}`
+      );
+
+      return;
+    }
+
+    // Fallback only if city does not exist in STATE_SUPPLY_DATA
+    const citySlug = cityName
+      .toLowerCase()
+      .replace(/\s+/g, '-');
+
+    setSelectedCityDetail({
+      cityName,
+      citySlug,
+      stateName: activeState.stateName,
+      stateSlug: activeState.stateSlug,
+      marketLocations: activeState.wholesaleHubs.slice(0, 3),
+      keyIndustries: activeState.demandSectors.slice(0, 3),
+      recommendedRexine: activeState.topProductsInDemand.slice(0, 3),
+      deliveryTimeline: activeState.avgDeliveryTime,
+      seoDescription: `Rexine Centre provides direct wholesale supply of premium synthetic leather, sofa rexine, and PVC sheeting to dealers and manufacturers in ${cityName}, ${activeState.stateName}.`
+    });
+
+    setOpenFaqIdx(0);
+
+    navigate(
+      `/rexine-supplier/${activeState.stateSlug}/${citySlug}`
+    );
+  };
   const handleWhatsAppCityInquiry = (cityName: string) => {
-    const text = encodeURIComponent(`Hi Rexine Centre, I need wholesale Rexine supply & sample swatch books for ${cityName}, ${activeState.stateName}. Please share catalogue & pricing.`);
-    window.open(`https://wa.me/918104019890?text=${text}`, '_blank');
-  };
+    // Find the correct state for this city
+    let cityState = activeState.stateName;
 
+    for (const state of STATE_SUPPLY_DATA) {
+      const foundCity = state.citiesDetails.find(
+        city =>
+          city.cityName.toLowerCase() === cityName.toLowerCase() ||
+          city.citySlug?.toLowerCase() === cityName.toLowerCase()
+      );
+
+      if (foundCity) {
+        cityState = state.stateName;
+        break;
+      }
+    }
+
+    const text = encodeURIComponent(
+      `Hi Rexine Centre, I need wholesale Rexine supply & sample swatch books for ${cityName}, ${cityState}. Please share catalogue & pricing.`
+    );
+
+    window.location.href = `https://wa.me/918104019890?text=${text}`;
+  };
   return (
     <div className="bg-[#EDE8E3] min-h-screen text-[#111111] pb-20">
-      
+
       {/* 1. Hero Header */}
       <section className="bg-[#111111] text-white pt-12 pb-16 px-4 sm:px-6 lg:px-8 border-b border-gray-800 relative overflow-hidden">
         <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10 space-y-6">
@@ -89,9 +203,11 @@ export const CitiesSupplyPage: React.FC<CitiesSupplyPageProps> = ({ onOpenEnquir
           </div>
 
           <h1 className="font-poppins text-3xl sm:text-5xl font-extrabold text-white tracking-tight leading-tight uppercase max-w-4xl">
-            REXINE SUPPLIER IN YOUR <span className="text-[#C67C4E]">CITY & STATE</span>
+            REXINE SUPPLIER IN {' '}
+            <span className="text-[#C67C4E]">
+              {selectedLocationName}
+            </span>
           </h1>
-
           <p className="font-sans text-xs sm:text-sm text-gray-300 max-w-2xl leading-relaxed">
             Direct factory-to-wholesale supplier of premium Rexine, Leatherette, PVC Sheets, and Upholstery Fabrics across 500+ commercial hubs in India with 24-48h express dispatch.
           </p>
@@ -165,7 +281,7 @@ export const CitiesSupplyPage: React.FC<CitiesSupplyPageProps> = ({ onOpenEnquir
 
       {/* 2. Main Explorer Content */}
       <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 pt-10 space-y-12">
-        
+
         {/* State Selection Tab Bar */}
         <div>
           <h2 className="font-button text-xs font-bold uppercase tracking-[0.2em] text-gray-500 mb-4">
@@ -179,11 +295,10 @@ export const CitiesSupplyPage: React.FC<CitiesSupplyPageProps> = ({ onOpenEnquir
                 <button
                   key={state.id}
                   onClick={() => handleSelectState(state.stateSlug)}
-                  className={`px-5 py-2.5 rounded-xl font-button text-xs font-bold uppercase tracking-wider whitespace-nowrap transition-all flex items-center gap-2 ${
-                    isSelected
+                  className={`px-5 py-2.5 rounded-xl font-button text-xs font-bold uppercase tracking-wider whitespace-nowrap transition-all flex items-center gap-2 ${isSelected
                       ? 'bg-[#111111] text-white shadow-lg border border-[#111111]'
                       : 'bg-white/80 hover:bg-white text-gray-800 border border-black/10'
-                  }`}
+                    }`}
                 >
                   <span>{state.stateName}</span>
                   {isSelected && <span className="w-2 h-2 rounded-full bg-[#C67C4E]" />}
@@ -195,7 +310,7 @@ export const CitiesSupplyPage: React.FC<CitiesSupplyPageProps> = ({ onOpenEnquir
 
         {/* Selected State Overview Banner */}
         <div className="bg-white rounded-2xl p-6 sm:p-8 border border-black/10 shadow-md space-y-8">
-          
+
           <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 pb-6 border-b border-gray-200">
             <div className="space-y-2">
               <div className="flex items-center gap-2">
@@ -225,7 +340,7 @@ export const CitiesSupplyPage: React.FC<CitiesSupplyPageProps> = ({ onOpenEnquir
                 <MessageCircle className="w-4 h-4 fill-current" />
                 <span>INQUIRE BULK SUPPLY ({activeState.stateName.toUpperCase()})</span>
               </button>
-              
+
               <div className="text-center">
                 <span className="text-[10px] font-sans text-gray-500">
                   ⚡ Avg. Dispatch: <strong className="text-black">{activeState.avgDeliveryTime}</strong>
@@ -236,7 +351,7 @@ export const CitiesSupplyPage: React.FC<CitiesSupplyPageProps> = ({ onOpenEnquir
 
           {/* Grid: Popular Cities + Wholesale Hubs */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-            
+
             {/* Left 7 cols: Popular Cities Grid */}
             <div className="lg:col-span-7 space-y-4">
               <h3 className="font-button text-xs font-bold uppercase tracking-wider text-[#111111] flex items-center gap-2">
@@ -256,7 +371,7 @@ export const CitiesSupplyPage: React.FC<CitiesSupplyPageProps> = ({ onOpenEnquir
                         {city}
                       </span>
                       <span className="text-[10px] font-sans text-gray-500 group-hover:text-gray-300">
-                        Click for SEO Hub Info
+                        Click for More Information
                       </span>
                     </div>
                     <ArrowRight className="w-3.5 h-3.5 text-gray-400 group-hover:text-[#C67C4E] group-hover:translate-x-1 transition-transform" />
