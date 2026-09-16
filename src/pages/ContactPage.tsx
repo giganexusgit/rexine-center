@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Mail, Phone, MapPin, MessageCircle, Send, CheckCircle2, Building, Clock } from 'lucide-react';
+import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 import { Product } from '../types';
 import { sendFormEnquiryToEmail, RECIPIENT_EMAIL } from '../utils/emailService';
 
@@ -8,6 +9,7 @@ interface ContactPageProps {
 }
 
 export const ContactPage: React.FC<ContactPageProps> = ({ onOpenEnquiry }) => {
+  const { executeRecaptcha } = useGoogleReCaptcha();
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
@@ -31,7 +33,7 @@ export const ContactPage: React.FC<ContactPageProps> = ({ onOpenEnquiry }) => {
     let isValid = true;
     const newErrors = { name: '', phone: '', email: '', city: '' };
 
-if (!formData.name.trim()) {
+    if (!formData.name.trim()) {
       newErrors.name = 'Name is required.';
     } else if (formData.name.trim().length < 4) {
       newErrors.name = 'Name must be at least 4 characters.';
@@ -71,6 +73,15 @@ if (!formData.name.trim()) {
 
     setIsSubmitting(true);
 
+    let token: string | undefined;
+    if (executeRecaptcha) {
+      try {
+        token = await executeRecaptcha('contact_page_submit');
+      } catch (captchaErr) {
+        console.warn('reCAPTCHA execution note:', captchaErr);
+      }
+    }
+
     await sendFormEnquiryToEmail({
       formType: 'Main Contact Form',
       name: formData.name,
@@ -80,11 +91,13 @@ if (!formData.name.trim()) {
       city: formData.city,
       requirement: formData.requirement,
       message: formData.message,
+      recaptchaToken: token,
     });
 
     setIsSubmitting(false);
     setFormSubmitted(true);
   };
+
 
   return (
     <div className="bg-[#F8F6F2] min-h-screen pt-8 pb-20">

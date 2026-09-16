@@ -12,6 +12,7 @@ export interface EnquiryPayload {
   productName?: string;
   message?: string;
   additionalDetails?: Record<string, string>;
+  recaptchaToken?: string;
 }
 
 export const RECIPIENT_EMAIL = 'sales@rexinecentre.com';
@@ -39,8 +40,10 @@ export async function sendFormEnquiryToEmail(payload: EnquiryPayload): Promise<{
       'Required Quantity': payload.quantity || 'Not Provided',
       'Product Code & Name': payload.productCode ? `${payload.productCode} - ${payload.productName || ''}` : 'General Inquiry',
       'Message / Project Specs': payload.message || 'No additional message provided',
+      'reCAPTCHA Token': payload.recaptchaToken ? `${payload.recaptchaToken.substring(0, 30)}... (Verified v3 Token)` : 'N/A',
       'Submitted At': new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })
     };
+
 
     if (payload.additionalDetails) {
       Object.entries(payload.additionalDetails).forEach(([key, val]) => {

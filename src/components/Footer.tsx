@@ -236,31 +236,54 @@ export const Footer: React.FC = () => {
 
         {/* Bottom Bar */}
         <div className="pt-6 border-t border-white/10 flex flex-col md:flex-row items-center justify-between text-gray-400 text-[11px] gap-4">
-  <p>© 2026 Rexine Centre. All rights reserved.</p>
+          <p>© 2026 Rexine Centre. All rights reserved.</p>
 
-  <p className="whitespace-nowrap">MANAGED BY GIGA NEXUS TECHNOLOGY</p>
+          <p className="whitespace-nowrap">MANAGED BY GIGA NEXUS TECHNOLOGY</p>
 
-  <div className="flex flex-nowrap items-center gap-1.5 whitespace-nowrap text-[10px] sm:text-[11px]">
-    <Link
-      to="/sitemap"
-      className="hover:text-white transition-colors font-semibold text-gray-300"
-    >
-      Sitemap
-    </Link>
-    <span>|</span>
-    <Link to="/contact" className="hover:text-white transition-colors">
-      Privacy Policy
-    </Link>
-    <span>|</span>
-    <Link to="/contact" className="hover:text-white transition-colors">
-      Terms & Conditions
-    </Link>
-    <span>|</span>
-    <Link to="/contact" className="hover:text-white transition-colors">
-      Refund Policy
-    </Link>
-  </div>
-</div>
+          <div className="flex flex-nowrap items-center gap-1.5 whitespace-nowrap text-[10px] sm:text-[11px]">
+            <Link
+              to="/sitemap"
+              className="hover:text-white transition-colors font-semibold text-gray-300"
+            >
+              Sitemap
+            </Link>
+            <span>|</span>
+            <Link to="/contact" className="hover:text-white transition-colors">
+              Privacy Policy
+            </Link>
+            <span>|</span>
+            <Link to="/contact" className="hover:text-white transition-colors">
+              Terms & Conditions
+            </Link>
+            <span>|</span>
+            <Link to="/contact" className="hover:text-white transition-colors">
+              Refund Policy
+            </Link>
+          </div>
+        </div>
+
+        {/* Google reCAPTCHA v3 Compliance Notice */}
+        <div className="pt-3 text-center text-gray-600 text-[9px] font-sans">
+          This site is protected by reCAPTCHA and the Google{' '}
+          <a
+            href="https://policies.google.com/privacy"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-gray-400 hover:text-gray-200 underline"
+          >
+            Privacy Policy
+          </a>{' '}
+          and{' '}
+          <a
+            href="https://policies.google.com/terms"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-gray-400 hover:text-gray-200 underline"
+          >
+            Terms of Service
+          </a>{' '}
+          apply.
+        </div>
 
 
       </div>

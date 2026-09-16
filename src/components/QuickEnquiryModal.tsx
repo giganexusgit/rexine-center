@@ -6,6 +6,7 @@ import {
   Mail,
   CheckCircle2,
 } from 'lucide-react';
+import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 import { Product } from '../types';
 import {
   sendFormEnquiryToEmail,
@@ -30,6 +31,7 @@ export const QuickEnquiryModal: React.FC<QuickEnquiryModalProps> = ({
   onClose,
   selectedProduct,
 }) => {
+  const { executeRecaptcha } = useGoogleReCaptcha();
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
@@ -43,6 +45,7 @@ export const QuickEnquiryModal: React.FC<QuickEnquiryModalProps> = ({
   const [errors, setErrors] = useState<FormErrors>({});
   const [submitted, setSubmitted] = useState(false);
   const [isSending, setIsSending] = useState(false);
+
 
   if (!isOpen) return null;
 
@@ -129,6 +132,15 @@ export const QuickEnquiryModal: React.FC<QuickEnquiryModalProps> = ({
     setIsSending(true);
 
     try {
+      let token: string | undefined;
+      if (executeRecaptcha) {
+        try {
+          token = await executeRecaptcha('quick_enquiry_submit');
+        } catch (captchaErr) {
+          console.warn('reCAPTCHA execution note:', captchaErr);
+        }
+      }
+
       // 1. Send form details to email
       await sendFormEnquiryToEmail({
         formType: 'Wholesale Quick Enquiry',
@@ -141,10 +153,12 @@ export const QuickEnquiryModal: React.FC<QuickEnquiryModalProps> = ({
         productCode: selectedProduct?.code,
         productName: selectedProduct?.name,
         message: formData.message.trim(),
+        recaptchaToken: token,
       });
 
       setIsSending(false);
       setSubmitted(true);
+
 
       // 2. Prepare WhatsApp message
       const pInfo = selectedProduct
