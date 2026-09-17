@@ -3,7 +3,8 @@ import { aboutInteriorDining, heroLeatherRolls, leatherSwatchesStacked } from '.
 import { ShieldCheck, Award, Factory, Users, MapPin, CheckCircle2, ArrowRight } from 'lucide-react';
 import { Product } from '../types';
 import OurClients from '../components/OurClients';
-
+import { SEO } from '../components/SEO';
+import { SEO_DATA } from '../data/seoData';
 
 interface AboutPageProps {
   onOpenEnquiry: (product?: Product | null) => void;
@@ -11,6 +12,13 @@ interface AboutPageProps {
 
 export const AboutPage: React.FC<AboutPageProps> = ({ onOpenEnquiry }) => {
   return (
+    <>
+    <SEO
+    title={SEO_DATA.about.title}
+    description={SEO_DATA.about.description}
+    keywords={SEO_DATA.about.keywords}
+    />
+    
     <div className="bg-[#F8F6F2] min-h-screen pt-8 pb-20">
       <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8">
         
@@ -139,5 +147,6 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onOpenEnquiry }) => {
 
       </div>
     </div>
+    </>
   );
 };

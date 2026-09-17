@@ -3,6 +3,8 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { MapPin, Search, ArrowRight, Building2, Truck, ShieldCheck, CheckCircle2, MessageCircle, ChevronDown, ChevronUp, Layers, HelpCircle, PhoneCall } from 'lucide-react';
 import { STATE_SUPPLY_DATA, ALL_SERVED_CITIES_SEO, StateDetail, CityDetail } from '../data/citySupplyData';
 import { Product } from '../types';
+import { SEO } from '../components/SEO';
+import { SEO_DATA } from '../data/seoData';
 
 interface CitiesSupplyPageProps {
   onOpenEnquiry: (product?: Product | null, customNote?: string) => void;
@@ -189,8 +191,18 @@ export const CitiesSupplyPage: React.FC<CitiesSupplyPageProps> = ({ onOpenEnquir
 
     window.location.href = `https://wa.me/918104019890?text=${text}`;
   };
+
+  const isFallbackCity = citySlug ? !activeState.citiesDetails.some(c => c.citySlug?.toLowerCase() === citySlug.toLowerCase() || c.cityName?.toLowerCase() === citySlug.toLowerCase()) : false;
+
   return (
-    <div className="bg-[#EDE8E3] min-h-screen text-[#111111] pb-20">
+    <>
+      <SEO
+        title={`${selectedLocationName} | ${SEO_DATA.citiesSupply.title}`}
+        description={selectedCityDetail?.seoDescription || SEO_DATA.citiesSupply.description}
+        keywords={[...(SEO_DATA.citiesSupply.keywords || []), selectedLocationName, activeState.stateName]}
+        noindex={isFallbackCity}
+      />
+      <div className="bg-[#EDE8E3] min-h-screen text-[#111111] pb-20">
 
       {/* 1. Hero Header */}
       <section className="bg-[#111111] text-white pt-12 pb-16 px-4 sm:px-6 lg:px-8 border-b border-gray-800 relative overflow-hidden">
@@ -534,7 +546,7 @@ export const CitiesSupplyPage: React.FC<CitiesSupplyPageProps> = ({ onOpenEnquir
               50+ CITIES WE REGULARLY SUPPLY
             </h3>
             <p className="font-sans text-xs text-gray-500 mt-1">
-              Select any city below to initiate direct WhatsApp bulk pricing or request physical swatch books.
+              Select any city! below to initiate direct WhatsApp bulk pricing or request physical swatch books.
             </p>
           </div>
 
@@ -583,5 +595,6 @@ export const CitiesSupplyPage: React.FC<CitiesSupplyPageProps> = ({ onOpenEnquir
 
       </div>
     </div>
+    </>
   );
 };

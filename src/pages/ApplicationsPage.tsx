@@ -4,6 +4,8 @@ import { APPLICATIONS } from '../data/mockData';
 import { ArrowRight, Check, ShieldCheck, Flame, Sun, Droplets, Sparkles, Building, Car, Sofa, Wrench } from 'lucide-react';
 import { Product } from '../types';
 import officeUse from '../assets/images/office-use.png';
+import { SEO } from '../components/SEO';
+import { SEO_DATA } from '../data/seoData';
 
 interface ApplicationsPageProps {
   onOpenEnquiry: (product?: Product | null) => void;
@@ -80,6 +82,12 @@ export const ApplicationsPage: React.FC<ApplicationsPageProps> = ({ onOpenEnquir
 
   const [selectedApp, setSelectedApp] = useState(initialApp);
   return (
+    <>  
+    <SEO
+  title={SEO_DATA.applications.title}
+  description={SEO_DATA.applications.description}
+  keywords={SEO_DATA.applications.keywords}
+/>
     <div className="bg-[#F8F6F2] min-h-screen pt-8 pb-20">
       <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8">
         
@@ -193,5 +201,6 @@ export const ApplicationsPage: React.FC<ApplicationsPageProps> = ({ onOpenEnquir
 
       </div>
     </div>
+      </>
   );
 };

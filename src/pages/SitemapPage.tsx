@@ -19,6 +19,8 @@ import {
   ArrowRight
 } from 'lucide-react';
 import { SAMPLE_BOOKS_DATA, BRAND_COLLECTIONS } from '../data/booksData';
+import { SEO } from '../components/SEO';
+import { SEO_DATA } from '../data/seoData';
 
 interface SitemapPageProps {
   onOpenEnquiry?: (product?: any) => void;
@@ -152,6 +154,12 @@ export const SitemapPage: React.FC<SitemapPageProps> = ({ onOpenEnquiry }) => {
   }).filter((section) => section.links.length > 0);
 
   return (
+    <>
+    <SEO
+  title={SEO_DATA.sitemap.title}
+  description={SEO_DATA.sitemap.description}
+  keywords={SEO_DATA.sitemap.keywords}
+/>
     <div className="bg-[#F8F6F2] min-h-screen pt-6 pb-28">
       <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8">
         
@@ -344,5 +352,6 @@ export const SitemapPage: React.FC<SitemapPageProps> = ({ onOpenEnquiry }) => {
 
       </div>
     </div>
+    </>
   );
 };

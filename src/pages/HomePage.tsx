@@ -1,5 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+
 import { HeroBanner } from '../components/HeroBanner';
 import OurClients from '../components/OurClients';
 import { HighlightsBar } from '../components/HighlightsBar';
@@ -13,7 +14,10 @@ import { ProcessSection } from '../components/ProcessSection';
 import { GalleryTestimonialsBlog } from '../components/GalleryTestimonialsBlog';
 import { FAQAndBulkSection } from '../components/FAQAndBulkSection';
 import { IndiaSupplySection } from '../components/IndiaSupplySection';
+
 import { Product } from '../types';
+import { SEO } from '../components/SEO';
+import { SEO_DATA } from '../data/seoData';
 
 interface HomePageProps {
   onOpenBookScanner: () => void;
@@ -34,11 +38,21 @@ export const HomePage: React.FC<HomePageProps> = ({
 
   return (
     <div>
+
+      {/* SEO */}
+      <SEO
+        title={SEO_DATA.home.title}
+        description={SEO_DATA.home.description}
+        keywords={SEO_DATA.home.keywords}
+
+      />
+
       {/* 1. Hero Banner */}
       <HeroBanner
         onOpenBookScanner={onOpenBookScanner}
         onOpenEnquiry={() => onOpenEnquiry(null)}
       />
+
       <OurClients />
 
       {/* 2. Highlights Bar */}
@@ -62,9 +76,12 @@ export const HomePage: React.FC<HomePageProps> = ({
       />
 
       {/* 6. Applications Section */}
-<ApplicationsSection
-  onSelectApplication={(appId) => navigate(`/applications/${appId}`)}
-/>
+      <ApplicationsSection
+        onSelectApplication={(appId) =>
+          navigate(`/applications/${appId}`)
+        }
+      />
+
       {/* 7. Metrics Bar */}
       <MetricsBar />
 

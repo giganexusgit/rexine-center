@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { Mail, Phone, MapPin, MessageCircle, Send, CheckCircle2, Building, Clock } from 'lucide-react';
 import { Product } from '../types';
 import { sendFormEnquiryToEmail, RECIPIENT_EMAIL } from '../utils/emailService';
+import { SEO } from '../components/SEO';
+import { SEO_DATA } from '../data/seoData';
 
 interface ContactPageProps {
   onOpenEnquiry: (product?: Product | null) => void;
@@ -87,7 +89,13 @@ if (!formData.name.trim()) {
   };
 
   return (
-    <div className="bg-[#F8F6F2] min-h-screen pt-8 pb-20">
+    <>
+      <SEO
+        title={SEO_DATA.contact.title}
+        description={SEO_DATA.contact.description}
+        keywords={SEO_DATA.contact.keywords}
+      />
+      <div className="bg-[#F8F6F2] min-h-screen pt-8 pb-20">
       <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Page Title */}
@@ -371,5 +379,6 @@ if (!formData.name.trim()) {
 
       </div>
     </div>
+    </>
   );
 };

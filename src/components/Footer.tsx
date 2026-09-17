@@ -185,7 +185,7 @@ export const Footer: React.FC = () => {
             <span className="font-button text-[10px] font-bold text-[#C67C4E] uppercase tracking-widest">
               POPULAR CITIES WHOLESALE REXINE SUPPLY
             </span>
-            <Link to="/supply-locations" className="text-[10px] font-button font-bold text-gray-400 hover:text-white uppercase tracking-wider">
+            <Link to="/rexine-supplier/maharashtra" className="text-[10px] font-button font-bold text-gray-400 hover:text-white uppercase tracking-wider">
               Explore All Cities →
             </Link>
           </div>
