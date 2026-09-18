@@ -221,7 +221,7 @@ export const CitiesSupplyPage: React.FC<CitiesSupplyPageProps> = ({ onOpenEnquir
             </span>
           </h1>
           <p className="font-sans text-xs sm:text-sm text-gray-300 max-w-2xl leading-relaxed">
-            Direct factory-to-wholesale supplier of premium Rexine, Leatherette, PVC Sheets, and Upholstery Fabrics across 500+ commercial hubs in India with 24-48h express dispatch.
+            Direct factory-to-wholesale supplier of premium Rexine, Leatherette, PVC Sheets, and Upholstery Fabrics across 500+ commercial hub in India with 24-48h express dispatch.
           </p>
 
           {/* Search Box */}
