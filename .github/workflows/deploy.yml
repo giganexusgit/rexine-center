@@ -30,6 +30,9 @@ jobs:
       # 4. Build React/Vite application
       - name: Build application
         run: npm run build
+        env:
+          VITE_RECAPTCHA_SITE_KEY: ${{ secrets.VITE_RECAPTCHA_SITE_KEY || '6Lfghb4tAAAAAM6rW5c5hjdGnMs3mglEjd3pOFMA' }}
+
 
       # 5. Deploy dist folder to Hostinger
       - name: Deploy to Hostinger

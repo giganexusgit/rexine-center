@@ -21,7 +21,15 @@
   }
 }
 
+/* Hide floating Google reCAPTCHA v3 badge to prevent overlap with WhatsApp button */
+.grecaptcha-badge {
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
 /* Custom Luxury Design Palette */
+
 :root {
   --color-charcoal: #111111;
   --color-white: #FFFFFF;
