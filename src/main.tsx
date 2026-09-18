@@ -8,16 +8,18 @@ import { HelmetProvider } from 'react-helmet-async';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <GoogleReCaptchaProvider
-      reCaptchaKey={RECAPTCHA_SITE_KEY}
-      scriptProps={{
-        async: true,
-        defer: true,
-        appendTo: 'head',
-      }}
-    >
-      <App />
-    </GoogleReCaptchaProvider>
+    <HelmetProvider>
+      <GoogleReCaptchaProvider
+        reCaptchaKey={RECAPTCHA_SITE_KEY}
+        scriptProps={{
+          async: true,
+          defer: true,
+          appendTo: 'head',
+        }}
+      >
+        <App />
+      </GoogleReCaptchaProvider>
+    </HelmetProvider>
   </StrictMode>,
 );
 
