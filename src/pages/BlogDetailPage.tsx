@@ -12,6 +12,8 @@ import {
 } from 'lucide-react';
 import { BLOG_POSTS } from '../data/mockData';
 
+import { SEO } from '../components/SEO';
+import { SEO_DATA } from '../data/seoData';
 export const BlogDetailPage: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();
   const [scrollProgress, setScrollProgress] = useState(0);
@@ -66,6 +68,7 @@ useEffect(() => {
 }, []);
   if (!post) {
     return (
+
       <div className="min-h-[60vh] flex items-center justify-center px-6">
         <div className="text-center">
           <h1 className="font-serif text-3xl font-bold text-gray-900">Article Not Found</h1>
@@ -81,9 +84,16 @@ useEffect(() => {
       </div>
     );
   }
+  
 
   return (
-    <div className="min-h-screen bg-gray-50/50">
+    <>
+      <SEO 
+        title={`${post.title} | Rexine Centre Blog`}
+        description={post.excerpt || SEO_DATA.blogDetail.description}
+        keywords={[...(SEO_DATA.blogDetail.keywords || []), post.title]}
+      />
+      <div className="min-h-screen bg-gray-50/50">
       {/* Reading Progress Bar */}
       <div className="fixed top-0 left-0 w-full h-1 bg-gray-200 z-50">
         <div
@@ -307,5 +317,6 @@ useEffect(() => {
         </div>
       </div>
     </div>
+    </>
   );
 };

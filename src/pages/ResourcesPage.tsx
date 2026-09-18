@@ -5,6 +5,8 @@ import { BookOpen, FileText, Download, Play, HelpCircle, ChevronDown, ArrowRight
 import { Product } from '../types';
 import { SITE_URL } from '../config';
 import { Link } from 'react-router-dom';
+import { SEO } from '../components/SEO';
+import { SEO_DATA } from '../data/seoData';
 
 interface ResourcesPageProps {
   onOpenEnquiry: (product?: Product | null) => void;
@@ -25,6 +27,12 @@ export const ResourcesPage: React.FC<ResourcesPageProps> = ({
   };
 
   return (
+    <>
+    <SEO
+  title={SEO_DATA.resources.title}
+  description={SEO_DATA.resources.description}
+  keywords={SEO_DATA.resources.keywords}
+/>
     <div className="bg-[#F8F6F2] min-h-screen pt-8 pb-20">
       <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8">
         
@@ -244,5 +252,6 @@ export const ResourcesPage: React.FC<ResourcesPageProps> = ({
 
       </div>
     </div>
+    </>
   );
 };

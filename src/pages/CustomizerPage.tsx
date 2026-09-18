@@ -2,6 +2,8 @@ import React from 'react';
 import { CustomizerSection } from '../components/CustomizerSection';
 import { Sparkles, Shield, RefreshCw, CheckCircle2 } from 'lucide-react';
 import { Product } from '../types';
+import { SEO } from '../components/SEO';
+import { SEO_DATA } from '../data/seoData';
 
 interface CustomizerPageProps {
   onOpenEnquiry: (product?: Product | null) => void;
@@ -9,6 +11,12 @@ interface CustomizerPageProps {
 
 export const CustomizerPage: React.FC<CustomizerPageProps> = ({ onOpenEnquiry }) => {
   return (
+    <>
+    <SEO
+  title={SEO_DATA.customizer.title}
+  description={SEO_DATA.customizer.description}
+  keywords={SEO_DATA.customizer.keywords}
+/>
     <div className="bg-[#F8F6F2] min-h-screen pt-8 pb-20">
       <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8">
         
@@ -71,5 +79,6 @@ export const CustomizerPage: React.FC<CustomizerPageProps> = ({ onOpenEnquiry })
 
       </div>
     </div>
+    </>
   );
 };

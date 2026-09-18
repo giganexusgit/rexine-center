@@ -17,6 +17,8 @@ import {
 } from 'lucide-react';
 import { SAMPLE_BOOKS_DATA } from '../data/booksData';
 import { SampleBook, Product } from '../types';
+import { SEO } from '../components/SEO';
+import { SEO_DATA } from '../data/seoData';
 
 interface BooksPageProps {
   onOpenEnquiry: (product?: Product | null) => void;
@@ -55,6 +57,12 @@ export const BooksPage: React.FC<BooksPageProps> = ({ onOpenEnquiry }) => {
   // ... rest of your component remains the same, 
   // but ensure any other map loops use uniqueBooks if needed.
   return (
+    <>
+    <SEO
+  title={SEO_DATA.books.title}
+  description={SEO_DATA.books.description}
+  keywords={SEO_DATA.books.keywords}
+/>
     <div className="bg-[#F8F6F2] min-h-screen pt-6 pb-28">
       <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8">
 
@@ -339,5 +347,6 @@ export const BooksPage: React.FC<BooksPageProps> = ({ onOpenEnquiry }) => {
 
       </div>
     </div>
+    </>
   );
 };

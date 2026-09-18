@@ -15,6 +15,8 @@ import {
 import { getBookProduct, getRelatedProducts } from '../data/mockBooks';
 import { Product } from '../types';
 import  BookQRCodeModal  from '../components/BookQRCodeModal';
+import { SEO } from '../components/SEO';
+import { SEO_DATA } from '../data/seoData';
 
 interface BookProductDetailPageProps {
   onOpenEnquiry: (product?: Product | null) => void;
@@ -94,7 +96,13 @@ export const BookProductDetailPage: React.FC<BookProductDetailPageProps> = ({
   };
 
   return (
-    <div className="bg-[#F8F6F2] min-h-screen pt-6 pb-28">
+    <>
+      <SEO
+        title={`${product.name} | ${book.title} | Rexine Centre`}
+        description={product.description || SEO_DATA.bookProductDetail.description}
+        keywords={[...(SEO_DATA.bookProductDetail.keywords || []), product.name, book.title, product.category || '']}
+      />
+      <div className="bg-[#F8F6F2] min-h-screen pt-6 pb-28">
       <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Breadcrumbs */}
@@ -367,5 +375,6 @@ export const BookProductDetailPage: React.FC<BookProductDetailPageProps> = ({
 
       </div>
     </div>
+    </>
   );
 };

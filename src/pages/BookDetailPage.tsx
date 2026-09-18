@@ -17,7 +17,8 @@ import { getBookBySlug, MOCK_BOOKS, BookProduct } from '../data/mockBooks';
 import { Product } from '../types';
 import BookQRCodeModal  from '../components/BookQRCodeModal';
 import  PDFViewerModal  from '../components/PDFViewerModal';
-
+import { SEO } from '../components/SEO';
+import { SEO_DATA } from '../data/seoData';
 interface BookDetailPageProps {
   onSelectProduct?: (product: Product) => void;
   onOpenEnquiry?: (product?: Product | null) => void;
@@ -89,6 +90,12 @@ const rrpPrice =
   };
 
   return (
+    <>
+      <SEO
+        title={`${book.title} | ${SEO_DATA.bookDetail.title}`}
+        description={book.description || SEO_DATA.bookDetail.description}
+        keywords={[book.title, ...(SEO_DATA.bookDetail.keywords || [])]}
+      />
     <div className="bg-[#F8F6F2] min-h-screen pt-6 pb-28">
       <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8">
         
@@ -457,6 +464,7 @@ const rrpPrice =
 
       </div>
     </div>
+    </>
   );
 };
 
