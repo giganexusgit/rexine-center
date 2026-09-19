@@ -24,3 +24,9 @@ declare module '*.webp' {
   const value: string;
   export default value;
 }
+
+interface Window {
+  dataLayer?: any[];
+  gtag?: (...args: any[]) => void;
+}
+

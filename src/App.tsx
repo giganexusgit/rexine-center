@@ -44,7 +44,7 @@ import { Product } from './types';
 // ============================================================
 
 function ScrollToTop() {
-  const { pathname } = useLocation();
+  const { pathname, search } = useLocation();
 
   useEffect(() => {
     window.scrollTo({
@@ -52,7 +52,13 @@ function ScrollToTop() {
       left: 0,
       behavior: 'instant',
     });
-  }, [pathname]);
+
+    if (typeof window.gtag === 'function') {
+      window.gtag('config', 'G-6SLVC9BB0D', {
+        page_path: pathname + search,
+      });
+    }
+  }, [pathname, search]);
 
   return null;
 }
