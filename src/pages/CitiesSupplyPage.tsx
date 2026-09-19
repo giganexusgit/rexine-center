@@ -19,81 +19,62 @@ export const CitiesSupplyPage: React.FC<CitiesSupplyPageProps> = ({ onOpenEnquir
   const navigate = useNavigate();
 
   const initialSlug = stateSlug || 'maharashtra';
-
   const [searchQuery, setSearchQuery] = useState('');
-  const [selectedStateSlug, setSelectedStateSlug] = useState<string>(initialSlug);
-  const [selectedCityDetail, setSelectedCityDetail] = useState<CityDetail | null>(null);
   const [openFaqIdx, setOpenFaqIdx] = useState<number | null>(0);
-  // Sync state when URL params change
-  // Sync selected city/state when URL params change
-  useEffect(() => {
-    window.scrollTo(0, 0);
-    const currentStateSlug = stateSlug || 'maharashtra';
 
-    const stateMatch = STATE_SUPPLY_DATA.find(
-      state =>
-        state.stateSlug.toLowerCase() === currentStateSlug.toLowerCase()
+  // Synchronously find active state from URL params
+  const activeState = React.useMemo(() => {
+    const currentStateSlug = stateSlug || 'maharashtra';
+    return (
+      STATE_SUPPLY_DATA.find(
+        state => state.stateSlug.toLowerCase() === currentStateSlug.toLowerCase()
+      ) || STATE_SUPPLY_DATA[0]
+    );
+  }, [stateSlug]);
+
+  // Synchronously find or construct active city detail from URL params
+  const selectedCityDetail = React.useMemo(() => {
+    if (!citySlug) return null;
+
+    const cityMatch = activeState.citiesDetails.find(
+      city =>
+        city.citySlug?.toLowerCase() === citySlug.toLowerCase() ||
+        city.cityName?.toLowerCase() === citySlug.toLowerCase()
     );
 
-    if (!stateMatch) {
-      setSelectedStateSlug('maharashtra');
-      setSelectedCityDetail(null);
-      return;
+    if (cityMatch) {
+      return cityMatch;
     }
 
-    setSelectedStateSlug(stateMatch.stateSlug);
+    // Fallback if city is not predefined in citiesDetails
+    const cityName = citySlug
+      .split('-')
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(' ');
 
-    // CITY URL: /maharashtra/nashik
-    if (citySlug) {
-      const cityMatch = stateMatch.citiesDetails.find(
-        city =>
-          city.citySlug?.toLowerCase() === citySlug.toLowerCase() ||
-          city.cityName?.toLowerCase() === citySlug.toLowerCase()
-      );
+    return {
+      cityName,
+      citySlug,
+      stateName: activeState.stateName,
+      stateSlug: activeState.stateSlug,
+      marketLocations: activeState.wholesaleHubs.slice(0, 3),
+      keyIndustries: activeState.demandSectors.slice(0, 3),
+      recommendedRexine: activeState.topProductsInDemand.slice(0, 3),
+      deliveryTimeline: activeState.avgDeliveryTime,
+      seoDescription: `Rexine Centre provides direct wholesale supply of premium synthetic leather, sofa rexine, and PVC sheeting to dealers and manufacturers in ${cityName}, ${activeState.stateName}.`
+    };
+  }, [citySlug, activeState]);
 
-      if (cityMatch) {
-        setSelectedCityDetail(cityMatch);
-        setOpenFaqIdx(0);
-        return;
-      }
-
-      // If city is not found in citiesDetails,
-      // create the city detail from the state data.
-      const cityName = citySlug
-        .split('-')
-        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-        .join(' ');
-
-      setSelectedCityDetail({
-        cityName,
-        citySlug,
-        stateName: stateMatch.stateName,
-        stateSlug: stateMatch.stateSlug,
-        marketLocations: stateMatch.wholesaleHubs.slice(0, 3),
-        keyIndustries: stateMatch.demandSectors.slice(0, 3),
-        recommendedRexine: stateMatch.topProductsInDemand.slice(0, 3),
-        deliveryTimeline: stateMatch.avgDeliveryTime,
-        seoDescription: `Rexine Centre provides direct wholesale supply of premium synthetic leather, sofa rexine, and PVC sheeting to dealers and manufacturers in ${cityName}, ${stateMatch.stateName}.`
-      });
-
-      setOpenFaqIdx(0);
-      return;
-    }
-
-    // STATE URL: /maharashtra
-    setSelectedCityDetail(null);
+  // Reset scroll and FAQ on navigation
+  useEffect(() => {
+    window.scrollTo(0, 0);
     setOpenFaqIdx(0);
-
   }, [stateSlug, citySlug]);
-  // Find active state
-  // Find active state
-  const activeState =
-    STATE_SUPPLY_DATA.find(s => s.stateSlug === selectedStateSlug) ||
-    STATE_SUPPLY_DATA[0];
 
-  // Current location name for hero
+  // Current location name for hero & SEO
   const selectedLocationName =
     selectedCityDetail?.cityName || activeState.stateName;
+
   // Filtered states/cities based on search
   const filteredStates = STATE_SUPPLY_DATA.filter(state => {
     if (!searchQuery.trim()) return true;
@@ -107,12 +88,10 @@ export const CitiesSupplyPage: React.FC<CitiesSupplyPageProps> = ({ onOpenEnquir
   });
 
   const handleSelectState = (slug: string) => {
-    setSelectedStateSlug(slug);
-    setSelectedCityDetail(null);
     setOpenFaqIdx(0);
-
     navigate(`/rexine-supplier/${slug}`);
   };
+
   const handleCityClick = (cityName: string) => {
     let matchedState: StateDetail | null = null;
     let matchedCity: CityDetail | null = null;
@@ -134,38 +113,21 @@ export const CitiesSupplyPage: React.FC<CitiesSupplyPageProps> = ({ onOpenEnquir
 
     // City found in the correct state
     if (matchedState && matchedCity) {
-      setSelectedStateSlug(matchedState.stateSlug);
-      setSelectedCityDetail(matchedCity);
       setOpenFaqIdx(0);
-
       navigate(
         `/rexine-supplier/${matchedState.stateSlug}/${matchedCity.citySlug}`
       );
-
       return;
     }
 
     // Fallback only if city does not exist in STATE_SUPPLY_DATA
-    const citySlug = cityName
+    const targetCitySlug = cityName
       .toLowerCase()
       .replace(/\s+/g, '-');
 
-    setSelectedCityDetail({
-      cityName,
-      citySlug,
-      stateName: activeState.stateName,
-      stateSlug: activeState.stateSlug,
-      marketLocations: activeState.wholesaleHubs.slice(0, 3),
-      keyIndustries: activeState.demandSectors.slice(0, 3),
-      recommendedRexine: activeState.topProductsInDemand.slice(0, 3),
-      deliveryTimeline: activeState.avgDeliveryTime,
-      seoDescription: `Rexine Centre provides direct wholesale supply of premium synthetic leather, sofa rexine, and PVC sheeting to dealers and manufacturers in ${cityName}, ${activeState.stateName}.`
-    });
-
     setOpenFaqIdx(0);
-
     navigate(
-      `/rexine-supplier/${activeState.stateSlug}/${citySlug}`
+      `/rexine-supplier/${activeState.stateSlug}/${targetCitySlug}`
     );
   };
   const handleWhatsAppCityInquiry = (cityName: string) => {
@@ -436,8 +398,8 @@ export const CitiesSupplyPage: React.FC<CitiesSupplyPageProps> = ({ onOpenEnquir
                   </h4>
                 </div>
                 <button
-                  onClick={() => setSelectedCityDetail(null)}
-                  className="text-xs text-gray-400 hover:text-white"
+                  onClick={() => navigate(`/rexine-supplier/${activeState.stateSlug}`)}
+                  className="text-xs text-gray-400 hover:text-white cursor-pointer"
                 >
                   Close ×
                 </button>

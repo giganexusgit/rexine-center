@@ -68,20 +68,26 @@ useEffect(() => {
 }, []);
   if (!post) {
     return (
-
-      <div className="min-h-[60vh] flex items-center justify-center px-6">
-        <div className="text-center">
-          <h1 className="font-serif text-3xl font-bold text-gray-900">Article Not Found</h1>
-          <p className="mt-2 text-gray-600">The article you're looking for doesn't exist or has been removed.</p>
-          <Link
-            to="/resources"
-            className="inline-flex items-center gap-2 mt-6 px-5 py-2.5 rounded-xl bg-[#C67C4E] text-white font-medium hover:bg-[#b06c42] transition-colors"
-          >
-            <ArrowLeft className="w-4 h-4" />
-            Back to Resources
-          </Link>
+      <>
+        <SEO
+          title="Article Not Found | Rexine Centre"
+          description="The article you're looking for doesn't exist or has been removed."
+          noindex
+        />
+        <div className="min-h-[60vh] flex items-center justify-center px-6">
+          <div className="text-center">
+            <h1 className="font-serif text-3xl font-bold text-gray-900">Article Not Found</h1>
+            <p className="mt-2 text-gray-600">The article you're looking for doesn't exist or has been removed.</p>
+            <Link
+              to="/resources"
+              className="inline-flex items-center gap-2 mt-6 px-5 py-2.5 rounded-xl bg-[#C67C4E] text-white font-medium hover:bg-[#b06c42] transition-colors"
+            >
+              <ArrowLeft className="w-4 h-4" />
+              Back to Resources
+            </Link>
+          </div>
         </div>
-      </div>
+      </>
     );
   }
   
@@ -89,9 +95,11 @@ useEffect(() => {
   return (
     <>
       <SEO 
-        title={`${post.title} | Rexine Centre Blog`}
+        title={`${post.title} | Rexine Centre`}
         description={post.excerpt || SEO_DATA.blogDetail.description}
         keywords={[...(SEO_DATA.blogDetail.keywords || []), post.title]}
+        image={post.image}
+        type="article"
       />
       <div className="min-h-screen bg-gray-50/50">
       {/* Reading Progress Bar */}

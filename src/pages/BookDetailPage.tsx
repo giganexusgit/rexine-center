@@ -95,6 +95,8 @@ const rrpPrice =
         title={`${book.title} | ${SEO_DATA.bookDetail.title}`}
         description={book.description || SEO_DATA.bookDetail.description}
         keywords={[book.title, ...(SEO_DATA.bookDetail.keywords || [])]}
+        image={book.coverImage}
+        type="product"
       />
     <div className="bg-[#F8F6F2] min-h-screen pt-6 pb-28">
       <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8">

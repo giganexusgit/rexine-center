@@ -41,21 +41,28 @@ export const BookProductDetailPage: React.FC<BookProductDetailPageProps> = ({
 
   if (!result) {
     return (
-      <div className="bg-[#F8F6F2] min-h-[70vh] py-20 flex items-center justify-center">
-        <div className="bg-white p-10 rounded-3xl border border-gray-200 shadow-md text-center max-w-md mx-auto space-y-4">
-          <BookOpen className="w-12 h-12 text-[#C67C4E] mx-auto" />
-          <h2 className="font-serif text-2xl font-bold text-gray-900">Product Not Found</h2>
-          <p className="font-sans text-xs text-gray-600">
-            The requested design swatches ({productCode}) could not be located in book catalogue '{slug}'.
-          </p>
-          <button
-            onClick={() => navigate('/books')}
-            className="bg-[#111111] hover:bg-[#C67C4E] text-white px-6 py-2.5 rounded-full font-button text-xs font-bold uppercase tracking-wider transition-colors"
-          >
-            Back to Books Index
-          </button>
+      <>
+        <SEO
+          title="Product Not Found | Rexine Centre"
+          description="The requested design swatch could not be located."
+          noindex
+        />
+        <div className="bg-[#F8F6F2] min-h-[70vh] py-20 flex items-center justify-center">
+          <div className="bg-white p-10 rounded-3xl border border-gray-200 shadow-md text-center max-w-md mx-auto space-y-4">
+            <BookOpen className="w-12 h-12 text-[#C67C4E] mx-auto" />
+            <h2 className="font-serif text-2xl font-bold text-gray-900">Product Not Found</h2>
+            <p className="font-sans text-xs text-gray-600">
+              The requested design swatches ({productCode}) could not be located in book catalogue '{slug}'.
+            </p>
+            <button
+              onClick={() => navigate('/books')}
+              className="bg-[#111111] hover:bg-[#C67C4E] text-white px-6 py-2.5 rounded-full font-button text-xs font-bold uppercase tracking-wider transition-colors"
+            >
+              Back to Books Index
+            </button>
+          </div>
         </div>
-      </div>
+      </>
     );
   }
 
@@ -101,6 +108,8 @@ export const BookProductDetailPage: React.FC<BookProductDetailPageProps> = ({
         title={`${product.name} | ${book.title} | Rexine Centre`}
         description={product.description || SEO_DATA.bookProductDetail.description}
         keywords={[...(SEO_DATA.bookProductDetail.keywords || []), product.name, book.title, product.category || '']}
+        image={activeMainImage}
+        type="product"
       />
       <div className="bg-[#F8F6F2] min-h-screen pt-6 pb-28">
       <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8">

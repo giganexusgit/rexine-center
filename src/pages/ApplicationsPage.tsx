@@ -74,20 +74,38 @@ const INDUSTRY_DETAILS = APPLICATIONS.map((app, index) => {
   };
 });
 export const ApplicationsPage: React.FC<ApplicationsPageProps> = ({ onOpenEnquiry }) => {
-  const { applicationId } = useParams<{ applicationId: string }>();
+  const { applicationId } = useParams<{ applicationId?: string }>();
 
-  const initialApp =
-    INDUSTRY_DETAILS.find((app) => app.id === applicationId) ||
-    INDUSTRY_DETAILS[0];
+  const matchedApp = React.useMemo(() => {
+    if (!applicationId) return INDUSTRY_DETAILS[0];
+    return (
+      INDUSTRY_DETAILS.find((app) => app.id.toLowerCase() === applicationId.toLowerCase()) ||
+      INDUSTRY_DETAILS[0]
+    );
+  }, [applicationId]);
 
-  const [selectedApp, setSelectedApp] = useState(initialApp);
+  const [selectedApp, setSelectedApp] = useState(matchedApp);
+
+  React.useEffect(() => {
+    setSelectedApp(matchedApp);
+  }, [matchedApp]);
+
+  const pageTitle = applicationId
+    ? `${selectedApp.title} Rexine & Artificial Leather Solutions | Rexine Centre`
+    : SEO_DATA.applications.title;
+
+  const pageDescription = applicationId
+    ? `${selectedApp.tagline} High-durability synthetic leather and upholstery materials engineered for ${selectedApp.title} applications across India.`
+    : SEO_DATA.applications.description;
+
   return (
     <>  
-    <SEO
-  title={SEO_DATA.applications.title}
-  description={SEO_DATA.applications.description}
-  keywords={SEO_DATA.applications.keywords}
-/>
+      <SEO
+        title={pageTitle}
+        description={pageDescription}
+        keywords={[...(SEO_DATA.applications.keywords || []), selectedApp.title, 'upholstery solutions']}
+        image={selectedApp.image}
+      />
     <div className="bg-[#F8F6F2] min-h-screen pt-8 pb-20">
       <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8">
         
